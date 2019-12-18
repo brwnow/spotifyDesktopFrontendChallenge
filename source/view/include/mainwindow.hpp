@@ -10,6 +10,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    MainWindow(MainWindow const &) = delete;
+    void operator = (MainWindow const &) = delete;
+
     ~MainWindow();
 
     static MainWindow& getInstance();
