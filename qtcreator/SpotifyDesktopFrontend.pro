@@ -20,6 +20,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCEPATH = ../source
 
+INCLUDEPATH += \
+    $$SOURCEPATH/view/include
+
 SOURCES += \
     $$SOURCEPATH/main.cpp \
     $$SOURCEPATH/view/mainwindow.cpp
