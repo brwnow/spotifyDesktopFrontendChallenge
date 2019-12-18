@@ -25,10 +25,14 @@ INCLUDEPATH += \
 
 SOURCES += \
     $$SOURCEPATH/main.cpp \
-    $$SOURCEPATH/view/mainwindow.cpp
+    $$SOURCEPATH/view/mainwindow.cpp \
+    $$SOURCEPATH/view/playlistcontainerview.cpp \
+    $$SOURCEPATH/view/playlistview.cpp
 
 HEADERS += \
-    $$SOURCEPATH/view/include/mainwindow.hpp
+    $$SOURCEPATH/view/include/mainwindow.hpp \
+    $$SOURCEPATH/view/include/playlistcontainerview.hpp \
+    $$SOURCEPATH/view/include/playlistview.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
