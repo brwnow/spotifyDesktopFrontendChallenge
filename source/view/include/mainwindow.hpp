@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
+#include "playlistcontainerview.hpp"
+
 #include <QMainWindow>
 
 class MainWindow : public QMainWindow
@@ -10,5 +12,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private:
+    PlaylistContainerView *playlistContainer;
+
+    void setupWidgets();
+    void setupLayout();
+    void setupWindow();
 };
 #endif // MAINWINDOW_HPP
