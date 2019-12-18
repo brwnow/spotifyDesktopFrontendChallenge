@@ -10,14 +10,18 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    static MainWindow& getInstance();
 
 private:
     PlaylistContainerView *playlistContainer;
 
+    MainWindow(QWidget *parent = nullptr);
+
     void setupWidgets();
     void setupLayout();
     void setupWindow();
+
 };
 #endif // MAINWINDOW_HPP

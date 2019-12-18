@@ -12,6 +12,13 @@ MainWindow::~MainWindow()
 {
 }
 
+MainWindow &MainWindow::getInstance()
+{
+    static MainWindow instance;
+
+    return instance;
+}
+
 void MainWindow::setupWidgets()
 {
     playlistContainer = new PlaylistContainerView();
