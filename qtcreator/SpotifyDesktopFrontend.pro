@@ -19,14 +19,13 @@ QMAKE_CXXFLAGS = $$CPPFLAGS
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCEPATH = ../source
-INCLUDEPATH = $$SOURCEPATH/include
 
 SOURCES += \
     $$SOURCEPATH/main.cpp \
-    $$SOURCEPATH/mainwindow.cpp
+    $$SOURCEPATH/view/mainwindow.cpp
 
 HEADERS += \
-    $$INCLUDEPATH/mainwindow.hpp
+    $$SOURCEPATH/view/include/mainwindow.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
