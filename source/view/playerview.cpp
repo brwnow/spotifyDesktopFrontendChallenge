@@ -24,24 +24,40 @@ bool PlayerView::getIsPlaying() const
 
 void PlayerView::setPlaying(bool playing)
 {
-    Q_UNUSED(playing);
+    if(playing != isPlaying)
+    {
+        isPlaying = playing;
+
+        if(isPlaying)
+        {
+            playPauseButton->setText(QString("Pause"));
+        }
+        else
+        {
+            playPauseButton->setText(QString("Play"));
+        }
+    }
 }
 
 void PlayerView::setupSong(const QString &songName, int resolution)
 {
-    Q_UNUSED(songName);
-    Q_UNUSED(resolution);
+    this->songName->setText(songName);
+    this->currentTime->setText(QString("00:00"));
+    navigationBar->setRange(0, resolution);
+    navigationBar->setValue(0);
 }
 
 void PlayerView::updateSongProgress(int songPosition, const QString &currentTime)
 {
-    Q_UNUSED(songPosition);
-    Q_UNUSED(currentTime);
+    navigationBar->setValue(songPosition);
+    this->currentTime->setText(currentTime);
 }
 
 void PlayerView::setNoSong()
 {
-    // to be implemented
+    setPlaying(false);
+    songName->setText(QString(""));
+    currentTime->setText(QString("00:00"));
 }
 
 void PlayerView::setupWidgets()
