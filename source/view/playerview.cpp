@@ -51,7 +51,9 @@ void PlayerView::setupWidgets()
     playPauseButton = new QPushButton(QString("Play"));
     previousSongButton = new QPushButton(QString("<<"));
     nextSongButton = new QPushButton(QString(">>"));
+
     navigationBar = new QSlider(Qt::Orientation::Horizontal);
+    navigationBar->setTracking(false);
 }
 
 void PlayerView::setupLayout()
@@ -75,7 +77,8 @@ void PlayerView::setupConnections()
     connect(playPauseButton, SIGNAL(clicked()), this, SLOT(onPlayPauseButtonClicked()));
     connect(previousSongButton, SIGNAL(clicked()), this, SIGNAL(previousClicked()));
     connect(nextSongButton, SIGNAL(clicked()), this, SIGNAL(nextClicked()));
-    connect(navigationBar, SIGNAL(sliderMoved(int)), this, SIGNAL(songPositionChanged(int)));
+    connect(navigationBar, SIGNAL(sliderMoved(int)), this, SIGNAL(songPositionSearching(int)));
+    connect(navigationBar, SIGNAL(valueChanged(int)), this, SIGNAL(songPositionChanged(int)));
 }
 
 void PlayerView::onPlayPauseButtonClicked()

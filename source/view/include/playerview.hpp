@@ -21,6 +21,7 @@ signals:
     void pauseClicked();
     void nextClicked();
     void previousClicked();
+    void songPositionSearching(int);
     void songPositionChanged(int);
 
 public slots:
