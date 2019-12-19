@@ -26,14 +26,14 @@ INCLUDEPATH += \
 SOURCES += \
     $$SOURCEPATH/main.cpp \
     $$SOURCEPATH/view/mainwindow.cpp \
-    $$SOURCEPATH/view/playlistcontainerview.cpp \
-    $$SOURCEPATH/view/playlistview.cpp \
+    $$SOURCEPATH/view/deletablelistview.cpp \
+    $$SOURCEPATH/view/deletableitem.cpp \
     $$SOURCEPATH/view/playerview.cpp
 
 HEADERS += \
     $$SOURCEPATH/view/include/mainwindow.hpp \
-    $$SOURCEPATH/view/include/playlistcontainerview.hpp \
-    $$SOURCEPATH/view/include/playlistview.hpp \
+    $$SOURCEPATH/view/include/deletablelistview.hpp \
+    $$SOURCEPATH/view/include/deletableitem.hpp \
     $$SOURCEPATH/view/include/playerview.hpp
 
 # Default rules for deployment.

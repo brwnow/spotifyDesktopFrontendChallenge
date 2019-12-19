@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include "playlistcontainerview.hpp"
+#include "deletablelistview.hpp"
 #include "playerview.hpp"
 
 #include <QMainWindow>
@@ -19,7 +19,7 @@ public:
     static MainWindow& getInstance();
 
 private:
-    PlaylistContainerView *playlistContainer;
+    DeletableListView *playlistContainer, *songListView;
     PlayerView *playerView;
 
     MainWindow(QWidget *parent = nullptr);
