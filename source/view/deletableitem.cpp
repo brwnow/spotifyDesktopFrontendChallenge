@@ -1,43 +1,43 @@
-#include "playlistview.hpp"
+#include "deletableitem.hpp"
 
 #include <QVBoxLayout>
 
-PlaylistView::PlaylistView(const QString &title, int playlistID, QWidget *parent) :
+DeletableItem::DeletableItem(const QString &title, int id, QWidget *parent) :
     QWidget(parent),
-    playlistID(playlistID)
+    id(id)
 {
     setupWidgets(title);
     setupLayout();
     setupConnections();
 }
 
-PlaylistView::~PlaylistView()
+DeletableItem::~DeletableItem()
 {
 
 }
 
-int PlaylistView::getPlaylistID() const
+int DeletableItem::getID() const
 {
-    return playlistID;
+    return id;
 }
 
-void PlaylistView::setupWidgets(const QString &title)
+void DeletableItem::setupWidgets(const QString &title)
 {
-    playlistName = new QLabel(title);
+    this->title = new QLabel(title);
     deleteButton = new QPushButton(QString("Del"));
 }
 
-void PlaylistView::setupLayout()
+void DeletableItem::setupLayout()
 {
     QHBoxLayout *layout = new QHBoxLayout();
 
-    layout->addWidget(playlistName, 1);
+    layout->addWidget(title, 1);
     layout->addWidget(deleteButton, 0);
 
     this->setLayout(layout);
 }
 
-void PlaylistView::setupConnections()
+void DeletableItem::setupConnections()
 {
-    connect(deleteButton, SIGNAL(clicked()), this, SIGNAL(deleteTriggered(playlistID)));
+    connect(deleteButton, SIGNAL(clicked()), this, SIGNAL(deleteTriggered(id)));
 }

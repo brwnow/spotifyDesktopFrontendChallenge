@@ -5,23 +5,23 @@
 #include <QPushButton>
 #include <QWidget>
 
-class PlaylistView : public QWidget
+class DeletableItem : public QWidget
 {
     Q_OBJECT
 
 public:
-    PlaylistView(const QString &title, int playlistID, QWidget *parent = nullptr);
-    ~PlaylistView();
+    DeletableItem(const QString &title, int id, QWidget *parent = nullptr);
+    ~DeletableItem();
 
-    int getPlaylistID() const;
+    int getID() const;
 
 signals:
-    void deleteTriggered(int playlistID);
+    void deleteTriggered(int id);
 
 private:
-    QLabel *playlistName;
+    QLabel *title;
     QPushButton *deleteButton;
-    int playlistID;
+    int id;
 
     void setupWidgets(const QString &title);
     void setupLayout();
