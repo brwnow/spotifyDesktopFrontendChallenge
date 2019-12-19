@@ -1,5 +1,5 @@
-#ifndef PLAYLIST_VIEW_HPP
-#define PLAYLIST_VIEW_HPP
+#ifndef DELETABLE_ITEM_HPP
+#define DELETABLE_ITEM_HPP
 
 #include <QLabel>
 #include <QPushButton>
@@ -29,4 +29,4 @@ private:
 
 };
 
-#endif // PLAYLIST_VIEW_HPP
+#endif // DELETABLE_ITEM_HPP
