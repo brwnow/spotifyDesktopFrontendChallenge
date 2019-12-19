@@ -58,6 +58,7 @@ void PlayerView::setNoSong()
     setPlaying(false);
     songName->setText(QString(""));
     currentTime->setText(QString("00:00"));
+    navigationBar->setValue(0);
 }
 
 void PlayerView::setupWidgets()
