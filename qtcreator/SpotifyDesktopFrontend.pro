@@ -28,13 +28,15 @@ SOURCES += \
     $$SOURCEPATH/view/mainwindow.cpp \
     $$SOURCEPATH/view/playlistcontainerview.cpp \
     $$SOURCEPATH/view/playlistview.cpp \
-    $$SOURCEPATH/view/playerview.cpp
+    $$SOURCEPATH/view/playerview.cpp \
+    $$SOURCEPATH/view/songlistview.cpp
 
 HEADERS += \
     $$SOURCEPATH/view/include/mainwindow.hpp \
     $$SOURCEPATH/view/include/playlistcontainerview.hpp \
     $$SOURCEPATH/view/include/playlistview.hpp \
-    $$SOURCEPATH/view/include/playerview.hpp
+    $$SOURCEPATH/view/include/playerview.hpp \
+    $$SOURCEPATH/view/include/songlistview.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
