@@ -80,5 +80,12 @@ void PlayerView::setupConnections()
 
 void PlayerView::onPlayPauseButtonClicked()
 {
-    // to be implemented
+    if(isPlaying)
+    {
+        emit pauseClicked();
+    }
+    else
+    {
+        emit playClicked();
+    }
 }
