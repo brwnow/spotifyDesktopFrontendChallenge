@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include "playlistcontainerview.hpp"
+#include "playerview.hpp"
 
 #include <QMainWindow>
 
@@ -19,6 +20,7 @@ public:
 
 private:
     PlaylistContainerView *playlistContainer;
+    PlayerView *playerView;
 
     MainWindow(QWidget *parent = nullptr);
 
