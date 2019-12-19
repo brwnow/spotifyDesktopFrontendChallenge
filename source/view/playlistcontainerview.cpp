@@ -28,8 +28,26 @@ void PlaylistContainerView::createPlaylist(const QString &title, int playlistID)
 
     playlistItem->setSizeHint(playlistView->sizeHint());
 
+    removePlaylist(playlistID);
+
+    playlistIdMap[playlistID] = playlistItem;
+
     listOfPlaylists->addItem(playlistItem);
     listOfPlaylists->setItemWidget(playlistItem, playlistView);
+}
+
+void PlaylistContainerView::removePlaylist(int playlistID)
+{
+    map<int, QListWidgetItem*>::iterator it = playlistIdMap.find(playlistID);
+
+    if(it != playlistIdMap.end())
+    {
+        int playlistRow = listOfPlaylists->row(it->second);
+
+        // We need to manually delete the item since Qt doesn't handle it anymore when we take it
+        delete listOfPlaylists->takeItem(playlistRow);
+        playlistIdMap.erase(it);
+    }
 }
 
 void PlaylistContainerView::setupWidgets()
