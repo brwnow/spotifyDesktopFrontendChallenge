@@ -24,8 +24,8 @@ MainWindow &MainWindow::getInstance()
 
 void MainWindow::setupWidgets()
 {
-    playlistContainer = new PlaylistContainerView();
-    songListView = new SongListView();
+    playlistContainer = new DeletableListView(QString("Playlists"));
+    songListView = new DeletableListView(QString(""));
     playerView = new PlayerView();
 }
 
