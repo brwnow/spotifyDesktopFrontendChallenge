@@ -65,6 +65,8 @@ void PlayerView::setupLayout()
     layout->addWidget(navigationBar, 1, 3);
     layout->addWidget(currentTime, 1, 4);
 
+    layout->setColumnStretch(3, 1);
+
     this->setLayout(layout);
 }
 
