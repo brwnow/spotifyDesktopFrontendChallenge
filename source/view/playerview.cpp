@@ -41,6 +41,8 @@ void PlayerView::setPlaying(bool playing)
 
 void PlayerView::setupSong(const QString &songName, int resolution)
 {
+    const QSignalBlocker signalBlocker(this);
+
     this->songName->setText(songName);
     this->currentTime->setText(QString("00:00"));
     navigationBar->setRange(0, resolution);
@@ -49,6 +51,8 @@ void PlayerView::setupSong(const QString &songName, int resolution)
 
 void PlayerView::updateSongProgress(int songPosition, const QString &currentTime)
 {
+    const QSignalBlocker signalBlocker(this);
+
     navigationBar->setValue(songPosition);
     this->currentTime->setText(currentTime);
 }
