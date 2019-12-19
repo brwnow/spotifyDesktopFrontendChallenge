@@ -26,6 +26,10 @@ private:
 
     void setupWidgets();
     void setupLayout();
+    void setupConnections();
+
+private slots:
+    void onPlaylistSelected(QListWidgetItem *playlistItem);
 };
 
 #endif // PLAYLIST_CONTAINER_VIEW_HPP
