@@ -2,6 +2,8 @@
 
 #include <exception>
 
+#include "songview.hpp"
+
 #include <QVBoxLayout>
 
 using std::exception;
