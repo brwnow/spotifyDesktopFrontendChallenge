@@ -1,89 +1,89 @@
-#include "playlistcontainerview.hpp"
+#include "deletablelistview.hpp"
 
 #include <exception>
 
-#include "playlistview.hpp"
+#include "deletableitem.hpp"
 
 #include <QVBoxLayout>
 
 using std::exception;
 
-PlaylistContainerView::PlaylistContainerView(QWidget *parent) :
+DeletableListView::DeletableListView(const QString&listTitle, QWidget *parent) :
     QWidget(parent)
 {
-    setupWidgets();
+    setupWidgets(listTitle);
     setupLayout();
     setupConnections();
 }
 
-PlaylistContainerView::~PlaylistContainerView()
+DeletableListView::~DeletableListView()
 {
 
 }
 
-void PlaylistContainerView::createPlaylist(const QString &title, int playlistID)
+void DeletableListView::createItem(const QString &title, int id)
 {
-    PlaylistView *playlistView = new PlaylistView(title, playlistID);
-    QListWidgetItem *playlistItem = new QListWidgetItem();
+    DeletableItem *deletableItem = new DeletableItem(title, id);
+    QListWidgetItem *item = new QListWidgetItem();
 
-    playlistItem->setSizeHint(playlistView->sizeHint());
+    item->setSizeHint(deletableItem->sizeHint());
 
-    connect(playlistView, SIGNAL(deleteTriggered(int)), this, SIGNAL(playlistDeleted(int)));
+    connect(deletableItem, SIGNAL(deleteTriggered(int)), this, SIGNAL(itemDeleted(int)));
 
-    removePlaylist(playlistID);
+    removeItem(id);
 
-    playlistIdMap[playlistID] = playlistItem;
+    itemIdMap[id] = item;
 
-    listOfPlaylists->addItem(playlistItem);
-    listOfPlaylists->setItemWidget(playlistItem, playlistView);
+    listOfItems->addItem(item);
+    listOfItems->setItemWidget(item, deletableItem);
 }
 
-void PlaylistContainerView::removePlaylist(int playlistID)
+void DeletableListView::removeItem(int id)
 {
-    map<int, QListWidgetItem*>::iterator it = playlistIdMap.find(playlistID);
+    map<int, QListWidgetItem*>::iterator it = itemIdMap.find(id);
 
-    if(it != playlistIdMap.end())
+    if(it != itemIdMap.end())
     {
-        int playlistRow = listOfPlaylists->row(it->second);
+        int itemRow = listOfItems->row(it->second);
 
         // We need to manually delete the item since Qt doesn't handle it anymore when we take it
-        delete listOfPlaylists->takeItem(playlistRow);
-        playlistIdMap.erase(it);
+        delete listOfItems->takeItem(itemRow);
+        itemIdMap.erase(it);
     }
 }
 
-void PlaylistContainerView::setupWidgets()
+void DeletableListView::setupWidgets(const QString &listTitle)
 {
-    titleLabel = new QLabel(QString("Playlists"));
-    listOfPlaylists = new QListWidget();
-    listOfPlaylists->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    listOfPlaylists->setVerticalScrollMode(QAbstractItemView::ScrollMode::ScrollPerPixel);
+    titleLabel = new QLabel(listTitle);
+    listOfItems = new QListWidget();
+    listOfItems->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    listOfItems->setVerticalScrollMode(QAbstractItemView::ScrollMode::ScrollPerPixel);
 }
 
-void PlaylistContainerView::setupLayout()
+void DeletableListView::setupLayout()
 {
     QVBoxLayout *layout = new QVBoxLayout();
 
     layout->addWidget(titleLabel, 0);
-    layout->addWidget(listOfPlaylists, 1);
+    layout->addWidget(listOfItems, 1);
 
     this->setLayout(layout);
 }
 
-void PlaylistContainerView::setupConnections()
+void DeletableListView::setupConnections()
 {
-    connect(listOfPlaylists, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(onPlaylistSelected(QListWidgetItem*)));
+    connect(listOfItems, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(onItemSelected(QListWidgetItem*)));
 }
 
-void PlaylistContainerView::onPlaylistSelected(QListWidgetItem *playlistItem)
+void DeletableListView::onItemSelected(QListWidgetItem *item)
 {
     try
     {
-        const PlaylistView *playlist = dynamic_cast<PlaylistView*>(listOfPlaylists->itemWidget(playlistItem));
+        const DeletableItem *deletableItem = dynamic_cast<DeletableItem*>(listOfItems->itemWidget(item));
 
-        if(playlist != nullptr)
+        if(deletableItem != nullptr)
         {
-            emit playlistClicked(playlist->getPlaylistID());
+            emit itemClicked(deletableItem->getID());
         }
     }
     catch(exception &ex)

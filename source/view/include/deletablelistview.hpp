@@ -1,5 +1,5 @@
-#ifndef PLAYLIST_CONTAINER_VIEW_HPP
-#define PLAYLIST_CONTAINER_VIEW_HPP
+#ifndef DELETABLE_LIST_VIEW_HPP
+#define DELETABLE_LIST_VIEW_HPP
 
 #include <map>
 
@@ -9,33 +9,33 @@
 
 using std::map;
 
-class PlaylistContainerView : public QWidget
+class DeletableListView : public QWidget
 {
     Q_OBJECT
 
 public:
-    PlaylistContainerView(QWidget *parent = nullptr);
-    ~PlaylistContainerView();
+    DeletableListView(const QString &listTitle, QWidget *parent = nullptr);
+    ~DeletableListView();
 
 signals:
-    void playlistClicked(int playlistID);
-    void playlistDeleted(int playlistID);
+    void itemClicked(int id);
+    void itemDeleted(int id);
 
 public slots:
-    void createPlaylist(const QString &title, int playlistID);
-    void removePlaylist(int playlistID);
+    void createItem(const QString &title, int id);
+    void removeItem(int id);
 
 private:
     QLabel *titleLabel;
-    QListWidget *listOfPlaylists;
-    map<int, QListWidgetItem*> playlistIdMap;
+    QListWidget *listOfItems;
+    map<int, QListWidgetItem*> itemIdMap;
 
-    void setupWidgets();
+    void setupWidgets(const QString &listTitle);
     void setupLayout();
     void setupConnections();
 
 private slots:
-    void onPlaylistSelected(QListWidgetItem *playlistItem);
+    void onItemSelected(QListWidgetItem *item);
 };
 
-#endif // PLAYLIST_CONTAINER_VIEW_HPP
+#endif // DELETABLE_LIST_VIEW_HPP
