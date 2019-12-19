@@ -28,6 +28,8 @@ void PlaylistContainerView::createPlaylist(const QString &title, int playlistID)
 
     playlistItem->setSizeHint(playlistView->sizeHint());
 
+    connect(playlistView, SIGNAL(deleteTriggered(int)), this, SIGNAL(playlistDeleted(int)));
+
     removePlaylist(playlistID);
 
     playlistIdMap[playlistID] = playlistItem;
@@ -70,7 +72,7 @@ void PlaylistContainerView::setupLayout()
 
 void PlaylistContainerView::setupConnections()
 {
-    connect(listOfPlaylists, SIGNAL(itemActivated), this, SLOT(onPlaylistSelected()));
+    connect(listOfPlaylists, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(onPlaylistSelected(QListWidgetItem*)));
 }
 
 void PlaylistContainerView::onPlaylistSelected(QListWidgetItem *playlistItem)
