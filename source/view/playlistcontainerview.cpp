@@ -21,9 +21,9 @@ PlaylistContainerView::~PlaylistContainerView()
 
 }
 
-void PlaylistContainerView::createPlaylist(const QString &title)
+void PlaylistContainerView::createPlaylist(const QString &title, int playlistID)
 {
-    PlaylistView *playlistView = new PlaylistView(title);
+    PlaylistView *playlistView = new PlaylistView(title, playlistID);
     QListWidgetItem *playlistItem = new QListWidgetItem();
 
     playlistItem->setSizeHint(playlistView->sizeHint());

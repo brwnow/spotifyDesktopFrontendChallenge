@@ -18,7 +18,7 @@ signals:
     void playlistDeleted(int playlistID);
 
 public slots:
-    void createPlaylist(const QString &title);
+    void createPlaylist(const QString &title, int playlistID);
 
 private:
     QLabel *titleLabel;
