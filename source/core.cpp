@@ -116,21 +116,26 @@ bool Core::createDatabaseSchema()
 
     qDebug() << "<Core::createDatabaseSchema>";
 
-    if(!query.exec(QString("CREATE TABLE PLAYLIST(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+    if(!query.exec(QString("CREATE TABLE PLAYLIST("
+                           "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                            "NAME VARCHAR(100) UNIQUE)")))
     {
         qDebug() << query.lastError();
         success = false;
     }
 
-    if(!query.exec(QString("CREATE TABLE SONG(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                           "NAME VARCHAR(100))")))
+    if(!query.exec(QString("CREATE TABLE SONG("
+                           "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                           "NAME VARCHAR(100),"
+                           "PLAYLIST_ID INTEGER,"
+                           "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))")))
     {
         qDebug() << query.lastError();
         success = false;
     }
 
-    if(!query.exec(QString("CREATE TABLE CREDENTIALS(LOGIN VARCHAR(30) PRIMARY KEY,"
+    if(!query.exec(QString("CREATE TABLE CREDENTIALS("
+                           "LOGIN VARCHAR(30) PRIMARY KEY,"
                            "PASSWORD VARCHAR(30))")))
     {
         qDebug() << query.lastError();
