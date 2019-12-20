@@ -3,6 +3,7 @@
 
 #include "mainwindow.hpp"
 #include "playlistcontroller.hpp"
+#include "songlistcontroller.hpp"
 
 #include <QApplication>
 #include <QMutex>
@@ -38,6 +39,7 @@ private:
     MainWindow &mainWindow;
 
     PlaylistController *playlistController;
+    SongListController *songListController;
 
     Core(QApplication &app);
 

@@ -145,6 +145,7 @@ bool Core::createDatabaseSchema()
 void Core::initControllers()
 {
     playlistController = new PlaylistController(database, this);
+    songListController = new SongListController(database, this);
 }
 
 void Core::bindMVC()
@@ -156,8 +157,17 @@ void Core::bindMVC()
     connect(playlistController, SIGNAL(playlistRemoved(int)),
             mainWindow.getPlaylistContainer(), SLOT(removeItem(int)));
 
+    connect(songListController, SIGNAL(songCreated(const QStrin&, int)),
+            mainWindow.getSongListView(), SLOT(createItem(const QString&, int)));
+    connect(songListController, SIGNAL(songRemoved(int)),
+            mainWindow.getSongListView(), SLOT(removeItem(int)));
+
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemDeleted(int)),
             playlistController, SLOT(removePlaylist(int)));
+    connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicked(int)),
+            songListController, SLOT(loadPlaylist(int)));
+    connect(mainWindow.getSongListView(), SIGNAL(itemDeleted(int)),
+            songListController, SLOT(removeSong(int)));
 }
 
 void Core::sendLoadAppSignal()
