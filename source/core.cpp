@@ -157,6 +157,11 @@ void Core::bindMVC()
     connect(playlistController, SIGNAL(playlistRemoved(int)),
             mainWindow.getPlaylistContainer(), SLOT(removeItem(int)));
 
+    // SongListController must be notified when a playlist is deleted. If the opened playlist
+    // Is deleted, SongListController must clean the SongListView
+    connect(playlistController, SIGNAL(playlistRemoved(int)),
+            songListController, SLOT(clearPlaylist(int)));
+
     connect(songListController, SIGNAL(songCreated(const QStrin&, int)),
             mainWindow.getSongListView(), SLOT(createItem(const QString&, int)));
     connect(songListController, SIGNAL(songRemoved(int)),
