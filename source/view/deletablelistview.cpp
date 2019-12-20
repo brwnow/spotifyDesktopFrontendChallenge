@@ -52,6 +52,12 @@ void DeletableListView::removeItem(int id)
     }
 }
 
+void DeletableListView::clearItems()
+{
+    listOfItems->clear();
+    itemIdMap.clear();
+}
+
 void DeletableListView::setupWidgets(const QString &listTitle)
 {
     titleLabel = new QLabel(listTitle);
