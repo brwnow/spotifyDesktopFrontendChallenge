@@ -5,12 +5,12 @@
 
 #include <QObject>
 
-class Controller : public QObject
+class PlaylistController : public QObject
 {
     Q_OBJECT
 
 public:
-    Controller(PlaylistTable &playlistTable, QObject *parent = nullptr);
+    PlaylistController(QSqlDatabase &database, QObject *parent = nullptr);
 
 signals:
     void playlistCreated(const QString &title, int id);
@@ -22,7 +22,7 @@ public slots:
     void loadView();
 
 private:
-    PlaylistTable &playlistTable;
+    PlaylistTable playlistTable;
 
 };
 

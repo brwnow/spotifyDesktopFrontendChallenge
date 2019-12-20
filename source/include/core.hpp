@@ -2,6 +2,7 @@
 #define CORE_HPP
 
 #include "mainwindow.hpp"
+#include "playlistcontroller.hpp"
 
 #include <QApplication>
 #include <QMutex>
@@ -23,14 +24,20 @@ public:
     Core(Core const &) = delete;
     void operator = (Core const &) = delete;
 
+signals:
+    void mustLoadAppData();
+
 private:
     static const QString databaseDriver;
     static const QString databaseName;
     static QString errorMsgTitle, errorMsg;
 
     QApplication &app;
-    MainWindow &mainWindow;
     QSqlDatabase database;
+
+    MainWindow &mainWindow;
+
+    PlaylistController *playlistController;
 
     Core(QApplication &app);
 
@@ -40,6 +47,9 @@ private:
 
     bool connectToDatabase();
     bool createDatabaseSchema();
+    void initControllers();
+    void bindMVC();
+    void sendLoadAppSignal();
 
 };
 

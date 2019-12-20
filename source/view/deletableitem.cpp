@@ -39,5 +39,10 @@ void DeletableItem::setupLayout()
 
 void DeletableItem::setupConnections()
 {
-    connect(deleteButton, SIGNAL(clicked()), this, SIGNAL(deleteTriggered(id)));
+    connect(deleteButton, SIGNAL(clicked()), this, SLOT(onDeleteButtonClicked()));
+}
+
+void DeletableItem::onDeleteButtonClicked()
+{
+    emit deleteTriggered(id);
 }

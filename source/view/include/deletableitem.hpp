@@ -27,6 +27,9 @@ private:
     void setupLayout();
     void setupConnections();
 
+private slots:
+    void onDeleteButtonClicked();
+
 };
 
 #endif // DELETABLE_ITEM_HPP

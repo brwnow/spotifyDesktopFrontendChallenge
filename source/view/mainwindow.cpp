@@ -22,6 +22,21 @@ MainWindow &MainWindow::getInstance()
     return instance;
 }
 
+DeletableListView *MainWindow::getPlaylistContainer()
+{
+    return playlistContainer;
+}
+
+DeletableListView *MainWindow::getSongListView()
+{
+    return songListView;
+}
+
+PlayerView *MainWindow::getPlayerView()
+{
+    return playerView;
+}
+
 void MainWindow::setupWidgets()
 {
     playlistContainer = new DeletableListView(QString("Playlists"));

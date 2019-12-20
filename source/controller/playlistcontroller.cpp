@@ -1,24 +1,26 @@
 #include "playlistcontroller.hpp"
 
-Controller::Controller(PlaylistTable &playlistTable, QObject *parent) :
+PlaylistController::PlaylistController(QSqlDatabase &database, QObject *parent) :
     QObject(parent),
-    playlistTable(playlistTable)
+    playlistTable(database)
 {
     connect(&playlistTable, SIGNAL(playlistInserted(const QString&, int)),
             this, SIGNAL(playlistCreated(const QString&, int)));
+    connect(&playlistTable, SIGNAL(playlistRemoved(int)),
+            this, SIGNAL(playlistRemoved(int)));
 }
 
-void Controller::createPlaylist(const QString &title)
+void PlaylistController::createPlaylist(const QString &title)
 {
     playlistTable.insert(title);
 }
 
-void Controller::removePlaylist(int id)
+void PlaylistController::removePlaylist(int id)
 {
     playlistTable.remove(id);
 }
 
-void Controller::loadView()
+void PlaylistController::loadView()
 {
     list<PlaylistTable::Tuple> playlists = playlistTable.getAllPlaylists();
 
