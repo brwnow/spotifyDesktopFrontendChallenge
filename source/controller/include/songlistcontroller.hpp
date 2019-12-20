@@ -5,6 +5,8 @@
 
 class SongListController : public QObject
 {
+    Q_OBJECT
+
 public:
     SongListController(QObject *parent = nullptr);
 
