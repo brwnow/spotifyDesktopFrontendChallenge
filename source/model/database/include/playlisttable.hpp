@@ -8,7 +8,7 @@
 
 using std::list;
 
-class PlaylistTable : QObject
+class PlaylistTable : public QObject
 {
     Q_OBJECT
 
@@ -32,7 +32,7 @@ public:
     void remove(int id);
 
 signals:
-    void playlistInserted(int id);
+    void playlistInserted(const QString &title, int id);
     void insertionFailed(const QString &title);
     void playlistRemoved(int id);
 
