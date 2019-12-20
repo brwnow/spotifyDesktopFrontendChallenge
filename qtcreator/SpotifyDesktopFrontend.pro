@@ -21,16 +21,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCEPATH = ../source
 
 INCLUDEPATH += \
+    $$SOURCEPATH/include \
     $$SOURCEPATH/view/include
 
 SOURCES += \
     $$SOURCEPATH/main.cpp \
+    $$SOURCEPATH/core.cpp \
     $$SOURCEPATH/view/mainwindow.cpp \
     $$SOURCEPATH/view/deletablelistview.cpp \
     $$SOURCEPATH/view/deletableitem.cpp \
     $$SOURCEPATH/view/playerview.cpp
 
 HEADERS += \
+    $$SOURCEPATH/include/core.hpp \
     $$SOURCEPATH/view/include/mainwindow.hpp \
     $$SOURCEPATH/view/include/deletablelistview.hpp \
     $$SOURCEPATH/view/include/deletableitem.hpp \
