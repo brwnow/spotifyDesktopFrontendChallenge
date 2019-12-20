@@ -105,13 +105,13 @@ bool Core::createDatabaseSchema()
 {
     QSqlQuery query(database);
 
-    if(!query.exec(QString("CREATE TABLE PLAYLIST(ID INT PRIMARY KEY, NAME VARCHAR(100))")))
+    if(!query.exec(QString("CREATE TABLE PLAYLIST(ID INT PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(100))")))
         return false;
 
-    if(!query.exec(QString("CREATE TABLE SONG(ID INT PRIMARY KEY, NAME VARCHAR(100))")))
+    if(!query.exec(QString("CREATE TABLE SONG(ID INT PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(100))")))
         return false;
 
-    if(!query.exec(QString("CREATE TABLE CREDENTIALS(LOGIN VARCHAR(30), PASSWORD VARCHAR(30))")))
+    if(!query.exec(QString("CREATE TABLE CREDENTIALS(LOGIN VARCHAR(30) PRIMARY KEY, PASSWORD VARCHAR(30))")))
         return false;
 
     return true;
