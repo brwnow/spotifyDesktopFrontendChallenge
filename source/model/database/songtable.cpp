@@ -33,11 +33,12 @@ list<SongTable::Tuple> SongTable::getPlaylist(int playlistID)
     return playlist;
 }
 
-void SongTable::insert(const QString &title)
+void SongTable::insert(const QString &title, int playlistID)
 {
     QSqlQuery query(database);
-    query.prepare("INSERT INTO SONG (NAME) VALUES (?)");
+    query.prepare("INSERT INTO SONG (NAME, PLAYLIST_ID) VALUES (?, ?)");
     query.bindValue(0, title);
+    query.bindValue(1, playlistID);
 
     if(query.exec())
         emit songInserted(title, query.lastInsertId().toInt());
