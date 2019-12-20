@@ -10,7 +10,7 @@ class PlaylistController : public QObject
     Q_OBJECT
 
 public:
-    PlaylistController(PlaylistTable &playlistTable, QObject *parent = nullptr);
+    PlaylistController(QSqlDatabase &database, QObject *parent = nullptr);
 
 signals:
     void playlistCreated(const QString &title, int id);
@@ -22,7 +22,7 @@ public slots:
     void loadView();
 
 private:
-    PlaylistTable &playlistTable;
+    PlaylistTable playlistTable;
 
 };
 

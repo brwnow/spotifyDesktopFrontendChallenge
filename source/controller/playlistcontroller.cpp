@@ -1,11 +1,13 @@
 #include "playlistcontroller.hpp"
 
-PlaylistController::PlaylistController(PlaylistTable &playlistTable, QObject *parent) :
+PlaylistController::PlaylistController(QSqlDatabase &database, QObject *parent) :
     QObject(parent),
-    playlistTable(playlistTable)
+    playlistTable(database)
 {
     connect(&playlistTable, SIGNAL(playlistInserted(const QString&, int)),
             this, SIGNAL(playlistCreated(const QString&, int)));
+    connect(&playlistTable, SIGNAL(playlistRemoved(int)),
+            this, SIGNAL(playlistRemoved(int)));
 }
 
 void PlaylistController::createPlaylist(const QString &title)
