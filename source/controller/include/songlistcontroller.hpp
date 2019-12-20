@@ -1,14 +1,17 @@
 #ifndef SONG_LIST_CONTROLLER_HPP
 #define SONG_LIST_CONTROLLER_HPP
 
+#include "songtable.hpp"
+
 #include <QObject>
+#include <QSqlDatabase>
 
 class SongListController : public QObject
 {
     Q_OBJECT
 
 public:
-    SongListController(QObject *parent = nullptr);
+    SongListController(QSqlDatabase &databse, QObject *parent = nullptr);
 
 signals:
     void songCreated(const QString &title, int songID);
@@ -16,7 +19,7 @@ signals:
     void playlistCleared();
 
 public slots:
-    void createSong(const QString &title, int songID);
+    void createSong(const QString &title);
     void removeSong(int songID);
     void loadPlaylist(int playlistId);
 
@@ -27,6 +30,8 @@ public slots:
 
 private:
     static const int INVALID_PLAYLIST_ID;
+
+    SongTable songTable;
 
     int openedPlaylistId;
 };
