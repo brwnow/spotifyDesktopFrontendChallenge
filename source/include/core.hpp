@@ -16,6 +16,8 @@ public:
     static const int CORE_ALREADY_RUNNING = -1;
     static QMutex runMutex;
 
+    ~Core();
+
     static int run(QApplication &app);
 
     Core(Core const &) = delete;

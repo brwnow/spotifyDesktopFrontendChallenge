@@ -13,6 +13,11 @@ const QString Core::databaseName("db.dat");
 QString Core::errorMsgTitle;
 QString Core::errorMsg;
 
+Core::~Core()
+{
+    database.close();
+}
+
 int Core::run(QApplication &app)
 {
     static bool isCoreRunning = false;
