@@ -37,7 +37,7 @@ void PlaylistTable::insert(const QString &title)
     query.bindValue(0, title);
 
     if(query.exec())
-        emit playlistInserted(query.lastInsertId().toInt());
+        emit playlistInserted(title, query.lastInsertId().toInt());
     else
         emit insertionFailed(title);
 }
