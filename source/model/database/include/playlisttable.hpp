@@ -8,7 +8,7 @@
 
 using std::list;
 
-class PlaylistTable : QObject
+class PlaylistTable : public QObject
 {
     Q_OBJECT
 
