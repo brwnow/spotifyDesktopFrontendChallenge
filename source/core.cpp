@@ -1,5 +1,7 @@
 #include "core.hpp"
 
+#include <QDebug>
+
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QSqlError>
@@ -99,6 +101,8 @@ bool Core::connectToDatabase()
     }
     else
     {
+        qDebug() << "Database error: " << database.lastError();
+
         setErrorDialog(QString("Cannot open database"), QString("Unable to establish a database connection"));
 
         return false;
@@ -108,17 +112,34 @@ bool Core::connectToDatabase()
 bool Core::createDatabaseSchema()
 {
     QSqlQuery query(database);
+    bool success = true;
 
-    if(!query.exec(QString("CREATE TABLE PLAYLIST(ID INT PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(100))")))
-        return false;
+    qDebug() << "<Core::createDatabaseSchema>";
 
-    if(!query.exec(QString("CREATE TABLE SONG(ID INT PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(100))")))
-        return false;
+    if(!query.exec(QString("CREATE TABLE PLAYLIST(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                           "NAME VARCHAR(100) UNIQUE)")))
+    {
+        qDebug() << query.lastError();
+        success = false;
+    }
 
-    if(!query.exec(QString("CREATE TABLE CREDENTIALS(LOGIN VARCHAR(30) PRIMARY KEY, PASSWORD VARCHAR(30))")))
-        return false;
+    if(!query.exec(QString("CREATE TABLE SONG(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                           "NAME VARCHAR(100))")))
+    {
+        qDebug() << query.lastError();
+        success = false;
+    }
 
-    return true;
+    if(!query.exec(QString("CREATE TABLE CREDENTIALS(LOGIN VARCHAR(30) PRIMARY KEY,"
+                           "PASSWORD VARCHAR(30))")))
+    {
+        qDebug() << query.lastError();
+        success = false;
+    }
+
+    qDebug() << "</Core::dataBaseSchema>";
+
+    return success;
 }
 
 void Core::initControllers()
