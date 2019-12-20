@@ -20,7 +20,8 @@ SOURCEPATH = ../source
 
 INCLUDEPATH += \
     $$SOURCEPATH/include \
-    $$SOURCEPATH/view/include
+    $$SOURCEPATH/view/include \
+    $$SOURCEPATH/model/database/include
 
 SOURCES += \
     $$SOURCEPATH/main.cpp \
@@ -28,14 +29,16 @@ SOURCES += \
     $$SOURCEPATH/view/mainwindow.cpp \
     $$SOURCEPATH/view/deletablelistview.cpp \
     $$SOURCEPATH/view/deletableitem.cpp \
-    $$SOURCEPATH/view/playerview.cpp
+    $$SOURCEPATH/view/playerview.cpp \
+    $$SOURCEPATH/model/database/playlisttable.cpp
 
 HEADERS += \
     $$SOURCEPATH/include/core.hpp \
     $$SOURCEPATH/view/include/mainwindow.hpp \
     $$SOURCEPATH/view/include/deletablelistview.hpp \
     $$SOURCEPATH/view/include/deletableitem.hpp \
-    $$SOURCEPATH/view/include/playerview.hpp
+    $$SOURCEPATH/view/include/playerview.hpp \
+    $$SOURCEPATH/model/database/include/playlisttable.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
