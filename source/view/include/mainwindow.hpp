@@ -18,6 +18,10 @@ public:
 
     static MainWindow& getInstance();
 
+    DeletableListView* getPlaylistContainer();
+    DeletableListView* getSongListView();
+    PlayerView * getPlayerView();
+
 private:
     DeletableListView *playlistContainer, *songListView;
     PlayerView *playerView;
