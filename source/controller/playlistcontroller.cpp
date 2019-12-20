@@ -1,6 +1,6 @@
 #include "playlistcontroller.hpp"
 
-Controller::Controller(PlaylistTable &playlistTable, QObject *parent) :
+PlaylistController::PlaylistController(PlaylistTable &playlistTable, QObject *parent) :
     QObject(parent),
     playlistTable(playlistTable)
 {
@@ -8,17 +8,17 @@ Controller::Controller(PlaylistTable &playlistTable, QObject *parent) :
             this, SIGNAL(playlistCreated(const QString&, int)));
 }
 
-void Controller::createPlaylist(const QString &title)
+void PlaylistController::createPlaylist(const QString &title)
 {
     playlistTable.insert(title);
 }
 
-void Controller::removePlaylist(int id)
+void PlaylistController::removePlaylist(int id)
 {
     playlistTable.remove(id);
 }
 
-void Controller::loadView()
+void PlaylistController::loadView()
 {
     list<PlaylistTable::Tuple> playlists = playlistTable.getAllPlaylists();
 
