@@ -32,7 +32,8 @@ SOURCES += \
     $$SOURCEPATH/view/deletableitem.cpp \
     $$SOURCEPATH/view/playerview.cpp \
     $$SOURCEPATH/model/database/playlisttable.cpp \
-    $$SOURCEPATH/controller/playlistcontroller.cpp
+    $$SOURCEPATH/controller/playlistcontroller.cpp \
+    $$SOURCEPATH/controller/songlistcontroller.cpp \
 
 HEADERS += \
     $$SOURCEPATH/include/core.hpp \
@@ -41,7 +42,8 @@ HEADERS += \
     $$SOURCEPATH/view/include/deletableitem.hpp \
     $$SOURCEPATH/view/include/playerview.hpp \
     $$SOURCEPATH/model/database/include/playlisttable.hpp \
-    $$SOURCEPATH/controller/include/playlistcontroller.hpp
+    $$SOURCEPATH/controller/include/playlistcontroller.hpp \
+    $$SOURCEPATH/controller/include/songlistcontroller.hpp \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
