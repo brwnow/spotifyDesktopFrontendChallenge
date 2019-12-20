@@ -35,6 +35,10 @@ int Core::run(QApplication &app)
         if(!core.connectToDatabase())
             appInitializationFailed = true;
 
+        core.initControllers();
+        core.bindMVC();
+        core.sendLoadAppSignal();
+
         if(!appInitializationFailed)
         {
             return core.exec();
@@ -115,4 +119,27 @@ bool Core::createDatabaseSchema()
         return false;
 
     return true;
+}
+
+void Core::initControllers()
+{
+    playlistController = new PlaylistController(database, this);
+}
+
+void Core::bindMVC()
+{
+    connect(this, SIGNAL(mustLoadAppData()), playlistController, SLOT(loadView()));
+
+    connect(playlistController, SIGNAL(playlistCreated(const QString&, int)),
+            mainWindow.getPlaylistContainer(), SLOT(createItem(const QString&, int)));
+    connect(playlistController, SIGNAL(playlistRemoved(int)),
+            mainWindow.getPlaylistContainer(), SLOT(removeItem(int)));
+
+    connect(mainWindow.getPlaylistContainer(), SIGNAL(itemDeleted(int)),
+            playlistController, SLOT(removePlaylist(int)));
+}
+
+void Core::sendLoadAppSignal()
+{
+    emit mustLoadAppData();
 }
