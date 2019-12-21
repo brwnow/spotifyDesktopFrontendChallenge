@@ -1,4 +1,4 @@
-QT += core gui widgets sql
+QT += core gui widgets sql network
 
 CONFIG += c++11
 
@@ -35,6 +35,7 @@ SOURCES += \
     $$SOURCEPATH/model/database/songtable.cpp \
     $$SOURCEPATH/controller/playlistcontroller.cpp \
     $$SOURCEPATH/controller/songlistcontroller.cpp \
+    $$SOURCEPATH/controller/spotifywebapicontroller.cpp
 
 HEADERS += \
     $$SOURCEPATH/include/core.hpp \
@@ -46,6 +47,7 @@ HEADERS += \
     $$SOURCEPATH/model/database/include/songtable.hpp \
     $$SOURCEPATH/controller/include/playlistcontroller.hpp \
     $$SOURCEPATH/controller/include/songlistcontroller.hpp \
+    $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
