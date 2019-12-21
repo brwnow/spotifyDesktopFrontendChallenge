@@ -39,8 +39,8 @@ PlayerView *MainWindow::getPlayerView()
 
 void MainWindow::setupWidgets()
 {
-    playlistContainer = new DeletableListView(QString("Playlists"));
-    songListView = new DeletableListView(QString(""));
+    playlistContainer = new DeletableListView();
+    songListView = new DeletableListView();
     playerView = new PlayerView();
 }
 

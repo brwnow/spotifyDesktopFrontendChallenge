@@ -3,19 +3,17 @@
 
 #include <map>
 
-#include <QWidget>
 #include <QLabel>
 #include <QListWidget>
 
 using std::map;
 
-class DeletableListView : public QWidget
+class DeletableListView : public QListWidget
 {
     Q_OBJECT
 
 public:
-    DeletableListView(const QString &listTitle, QWidget *parent = nullptr);
-    ~DeletableListView();
+    DeletableListView(QWidget *parent = nullptr);
 
 signals:
     void itemClicked(int id);
@@ -27,13 +25,7 @@ public slots:
     void clearItems();
 
 private:
-    QLabel *titleLabel;
-    QListWidget *listOfItems;
     map<int, QListWidgetItem*> itemIdMap;
-
-    void setupWidgets(const QString &listTitle);
-    void setupLayout();
-    void setupConnections();
 
 private slots:
     void onItemSelected(QListWidgetItem *item);
