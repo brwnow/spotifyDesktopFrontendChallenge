@@ -49,12 +49,18 @@ void PlayerView::setupSong(const QString &songName, int resolution)
     navigationBar->setValue(0);
 }
 
-void PlayerView::updateSongProgress(int songPosition, const QString &currentTime)
+void PlayerView::updateSongProgress(int songPosition, int currentTimeSeconds)
 {
     const QSignalBlocker signalBlocker(this);
 
+    int minutes = currentTimeSeconds / 60;
+    int seconds = currentTimeSeconds % 60;
+    QString time = QString("%1:%2").
+            arg(minutes, 2, 10, QLatin1Char('0')).
+            arg(seconds, 2, 10, QLatin1Char('0'));
+
     navigationBar->setValue(songPosition);
-    this->currentTime->setText(currentTime);
+    this->currentTime->setText(time);
 }
 
 void PlayerView::setNoSong()
