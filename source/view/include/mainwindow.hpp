@@ -27,6 +27,9 @@ signals:
     void playlistAddRequested(const QString &title);
 
 private:
+    // Percentage of desktop dimensions that MainWindow will assume
+    static const double windowPercentageOfDesktop;
+
     DeletableListView *playlistContainer, *songListView;
     PlayerView *playerView;
     QLineEdit *newPlaylistTextEdit;
