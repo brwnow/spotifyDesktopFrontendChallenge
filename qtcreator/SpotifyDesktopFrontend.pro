@@ -1,11 +1,11 @@
-QT += core gui widgets sql
+QT += core gui widgets sql network
 
 CONFIG += c++11
 
-CPPFLAGS = -Wall -Wextra -Werror
+CPPFLAGS = -Wall -Wextra
 
 CONFIG(release, debug|release) {
-    CPPFLAGS += -O3
+    CPPFLAGS += -Werror -O3
 }
 
 CONFIG(debug, debug|release) {
@@ -22,6 +22,7 @@ INCLUDEPATH += \
     $$SOURCEPATH/include \
     $$SOURCEPATH/view/include \
     $$SOURCEPATH/model/database/include \
+    $$SOURCEPATH/model/network/include \
     $$SOURCEPATH/controller/include
 
 SOURCES += \
@@ -33,8 +34,11 @@ SOURCES += \
     $$SOURCEPATH/view/playerview.cpp \
     $$SOURCEPATH/model/database/playlisttable.cpp \
     $$SOURCEPATH/model/database/songtable.cpp \
+    $$SOURCEPATH/model/network/spotifyapicredentials.cpp \
+    $$SOURCEPATH/model/network/spotifysong.cpp \
     $$SOURCEPATH/controller/playlistcontroller.cpp \
     $$SOURCEPATH/controller/songlistcontroller.cpp \
+    $$SOURCEPATH/controller/spotifywebapicontroller.cpp
 
 HEADERS += \
     $$SOURCEPATH/include/core.hpp \
@@ -44,8 +48,11 @@ HEADERS += \
     $$SOURCEPATH/view/include/playerview.hpp \
     $$SOURCEPATH/model/database/include/playlisttable.hpp \
     $$SOURCEPATH/model/database/include/songtable.hpp \
+    $$SOURCEPATH/model/network/include/spotifyapicredentials.hpp \
+    $$SOURCEPATH/model/network/include/spotifysong.hpp \
     $$SOURCEPATH/controller/include/playlistcontroller.hpp \
     $$SOURCEPATH/controller/include/songlistcontroller.hpp \
+    $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
