@@ -13,9 +13,9 @@ SongListController::SongListController(QSqlDatabase &database, QObject *parent) 
             this, SLOT(songRemoved(int)));
 }
 
-void SongListController::createSong(const QString &title)
+void SongListController::createSong(const QString &title, int playlistID)
 {
-    songTable.insert(title);
+    songTable.insert(title, playlistID);
 }
 
 void SongListController::removeSong(int songID)

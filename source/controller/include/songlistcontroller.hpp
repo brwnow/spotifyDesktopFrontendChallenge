@@ -19,7 +19,7 @@ signals:
     void playlistCleared();
 
 public slots:
-    void createSong(const QString &title);
+    void createSong(const QString &title, int playlistID);
     void removeSong(int songID);
     void loadPlaylist(int playlistId);
 
