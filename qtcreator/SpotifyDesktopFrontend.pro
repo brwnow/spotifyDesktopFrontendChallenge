@@ -35,6 +35,7 @@ SOURCES += \
     $$SOURCEPATH/model/database/playlisttable.cpp \
     $$SOURCEPATH/model/database/songtable.cpp \
     $$SOURCEPATH/model/network/spotifyapicredentials.cpp \
+    $$SOURCEPATH/model/network/spotifysong.cpp \
     $$SOURCEPATH/controller/playlistcontroller.cpp \
     $$SOURCEPATH/controller/songlistcontroller.cpp \
     $$SOURCEPATH/controller/spotifywebapicontroller.cpp
@@ -48,6 +49,7 @@ HEADERS += \
     $$SOURCEPATH/model/database/include/playlisttable.hpp \
     $$SOURCEPATH/model/database/include/songtable.hpp \
     $$SOURCEPATH/model/network/include/spotifyapicredentials.hpp \
+    $$SOURCEPATH/model/network/include/spotifysong.hpp \
     $$SOURCEPATH/controller/include/playlistcontroller.hpp \
     $$SOURCEPATH/controller/include/songlistcontroller.hpp \
     $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp
