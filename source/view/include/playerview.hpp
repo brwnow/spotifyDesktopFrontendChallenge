@@ -12,7 +12,6 @@ class PlayerView : public QWidget
 
 public:
     PlayerView(QWidget *parent = nullptr);
-    ~PlayerView();
 
     bool getIsPlaying() const;
 
@@ -27,7 +26,7 @@ signals:
 public slots:
     void setPlaying(bool playing);
     void setupSong(const QString &songName, int resolution);
-    void updateSongProgress(int songPosition, const QString &currentTime);
+    void updateSongProgress(int songPosition, int currentTimeSeconds);
     void setNoSong();
 
 private:

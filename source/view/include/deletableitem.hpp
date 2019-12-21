@@ -11,7 +11,6 @@ class DeletableItem : public QWidget
 
 public:
     DeletableItem(const QString &title, int id, QWidget *parent = nullptr);
-    ~DeletableItem();
 
     int getID() const;
 
