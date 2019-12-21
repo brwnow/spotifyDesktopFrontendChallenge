@@ -90,8 +90,8 @@ bool Core::connectToDatabase()
         {
             if(!createDatabaseSchema())
             {
-                setErrorDialog(QString("Database query error"),
-                               QString("Error while creating database tables"));
+                setErrorDialog("Database query error",
+                               "Error while creating database tables");
 
                 return false;
             }
@@ -103,7 +103,7 @@ bool Core::connectToDatabase()
     {
         qDebug() << "Database error: " << database.lastError();
 
-        setErrorDialog(QString("Cannot open database"), QString("Unable to establish a database connection"));
+        setErrorDialog("Cannot open database", "Unable to establish a database connection");
 
         return false;
     }
@@ -116,27 +116,27 @@ bool Core::createDatabaseSchema()
 
     qDebug() << "<Core::createDatabaseSchema>";
 
-    if(!query.exec(QString("CREATE TABLE PLAYLIST("
-                           "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                           "NAME VARCHAR(100) UNIQUE)")))
+    if(!query.exec("CREATE TABLE PLAYLIST("
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    "NAME VARCHAR(100) UNIQUE)"))
     {
         qDebug() << query.lastError();
         success = false;
     }
 
-    if(!query.exec(QString("CREATE TABLE SONG("
-                           "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                           "NAME VARCHAR(100),"
-                           "PLAYLIST_ID INTEGER,"
-                           "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))")))
+    if(!query.exec("CREATE TABLE SONG("
+                    "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    "NAME VARCHAR(100),"
+                    "PLAYLIST_ID INTEGER,"
+                    "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))"))
     {
         qDebug() << query.lastError();
         success = false;
     }
 
-    if(!query.exec(QString("CREATE TABLE CREDENTIALS("
-                           "LOGIN VARCHAR(30) PRIMARY KEY,"
-                           "PASSWORD VARCHAR(30))")))
+    if(!query.exec("CREATE TABLE CREDENTIALS("
+                    "LOGIN VARCHAR(30) PRIMARY KEY,"
+                    "PASSWORD VARCHAR(30))"))
     {
         qDebug() << query.lastError();
         success = false;

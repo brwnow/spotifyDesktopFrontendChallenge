@@ -30,11 +30,11 @@ void PlayerView::setPlaying(bool playing)
 
         if(isPlaying)
         {
-            playPauseButton->setText(QString("Pause"));
+            playPauseButton->setText("Pause");
         }
         else
         {
-            playPauseButton->setText(QString("Play"));
+            playPauseButton->setText("Play");
         }
     }
 }
@@ -44,7 +44,7 @@ void PlayerView::setupSong(const QString &songName, int resolution)
     const QSignalBlocker signalBlocker(this);
 
     this->songName->setText(songName);
-    this->currentTime->setText(QString("00:00"));
+    this->currentTime->setText("00:00");
     navigationBar->setRange(0, resolution);
     navigationBar->setValue(0);
 }
@@ -66,18 +66,18 @@ void PlayerView::updateSongProgress(int songPosition, int currentTimeSeconds)
 void PlayerView::setNoSong()
 {
     setPlaying(false);
-    songName->setText(QString(""));
-    currentTime->setText(QString("00:00"));
+    songName->setText("");
+    currentTime->setText("00:00");
     navigationBar->setValue(0);
 }
 
 void PlayerView::setupWidgets()
 {
     songName = new QLabel();
-    currentTime = new QLabel(QString("00:00"));
-    playPauseButton = new QPushButton(QString("Play"));
-    previousSongButton = new QPushButton(QString("<<"));
-    nextSongButton = new QPushButton(QString(">>"));
+    currentTime = new QLabel("00:00");
+    playPauseButton = new QPushButton("Play");
+    previousSongButton = new QPushButton("<<");
+    nextSongButton = new QPushButton(">>");
 
     navigationBar = new QSlider(Qt::Orientation::Horizontal);
     navigationBar->setTracking(false);

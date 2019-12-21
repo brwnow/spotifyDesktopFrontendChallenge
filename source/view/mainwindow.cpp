@@ -46,7 +46,7 @@ PlayerView *MainWindow::getPlayerView()
 
 void MainWindow::setupWindow()
 {
-    this->setWindowTitle(QString("Spotify Desktop"));
+    this->setWindowTitle("Spotify Desktop");
     this->setCentralWidget(new QWidget());
 
     setGeometry(QApplication::desktop()->size().width() * (1.0 - windowPercentageOfDesktop) / 2.0,
