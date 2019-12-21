@@ -180,6 +180,8 @@ void Core::bindMVC()
             songListController, SLOT(loadPlaylist(int)));
     connect(mainWindow.getSongListView(), SIGNAL(itemDeleted(int)),
             songListController, SLOT(removeSong(int)));
+    connect(&mainWindow, SIGNAL(playlistAddRequested(const QString&)),
+            playlistController, SLOT(createPlaylist(const QString &)));
 }
 
 void Core::sendLoadAppSignal()
