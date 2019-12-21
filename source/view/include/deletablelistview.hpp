@@ -24,6 +24,7 @@ signals:
 public slots:
     void createItem(const QString &title, int id);
     void removeItem(int id);
+    void clearItems();
 
 private:
     QLabel *titleLabel;

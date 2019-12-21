@@ -1,5 +1,8 @@
 #include "songtable.hpp"
 
+#include <QDebug>
+
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
@@ -16,33 +19,62 @@ SongTable::SongTable(QSqlDatabase &database, QObject *parent) :
 list<SongTable::Tuple> SongTable::getPlaylist(int playlistID)
 {
     QSqlQuery query(database);
-    query.prepare("SELECT ID, NAME FROM PLAYLIST WHERE PLAYLIST_ID = ?");
-    query.bindValue(0, playlistID);
-    int idFieldNum = query.record().indexOf(ID_FIELD);
-    int nameFieldNum = query.record().indexOf(NAME_FIELD);
     list<Tuple> playlist;
 
-    while(query.next())
-    {
-        int id = query.value(idFieldNum).toInt();
-        QString name = query.value(nameFieldNum).toString();
+    qDebug() << "<SongTable::getPlaylist playlistID = " << playlistID << ">";
 
-        playlist.push_back(Tuple(id, name));
+    query.prepare("SELECT ID, NAME FROM SONG WHERE PLAYLIST_ID = ?");
+    query.bindValue(0, playlistID);
+
+    if(!query.exec())
+    {
+        qDebug() << "Query error: " << query.lastError();
     }
+    else
+    {
+        int idFieldNum = query.record().indexOf(ID_FIELD);
+        int nameFieldNum = query.record().indexOf(NAME_FIELD);
+
+        while(query.next())
+        {
+            int id = query.value(idFieldNum).toInt();
+            QString name = query.value(nameFieldNum).toString();
+
+            playlist.push_back(Tuple(id, name));
+        }
+
+        qDebug() << "Query returned " << playlist.size() << " records";
+    }
+
+    qDebug() << "</SongTable::getPlaylist>";
 
     return playlist;
 }
 
-void SongTable::insert(const QString &title)
+void SongTable::insert(const QString &title, int playlistID)
 {
     QSqlQuery query(database);
-    query.prepare("INSERT INTO SONG (NAME) VALUES (?)");
+    query.prepare("INSERT INTO SONG (NAME, PLAYLIST_ID) VALUES (?, ?)");
     query.bindValue(0, title);
+    query.bindValue(1, playlistID);
+
+    qDebug() << "<SongTable::insert title = " << title << " playlistID = " << playlistID << ">";
+    qDebug() << "Running query " << query.lastQuery();
 
     if(query.exec())
+    {
+        qDebug() << "Query executed succesfully";
+
         emit songInserted(title, query.lastInsertId().toInt());
+    }
     else
+    {
+        qDebug() << "Query error: " << query.lastError();
+
         emit insertionFailed(title);
+    }
+
+    qDebug() << "</SongTable::insert>";
 }
 
 void SongTable::remove(int id)

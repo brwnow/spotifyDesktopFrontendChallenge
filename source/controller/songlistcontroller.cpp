@@ -1,5 +1,7 @@
 #include "songlistcontroller.hpp"
 
+#include <QDebug>
+
 const int SongListController::INVALID_PLAYLIST_ID = -1;
 
 SongListController::SongListController(QSqlDatabase &database, QObject *parent) :
@@ -10,12 +12,12 @@ SongListController::SongListController(QSqlDatabase &database, QObject *parent) 
     connect(&songTable, SIGNAL(songInserted(const QString&, int)),
             this, SIGNAL(songCreated(const QString&, int)));
     connect(&songTable, SIGNAL(songRemoved(int)),
-            this, SLOT(songRemoved(int)));
+            this, SIGNAL(songRemoved(int)));
 }
 
-void SongListController::createSong(const QString &title)
+void SongListController::createSong(const QString &title, int playlistID)
 {
-    songTable.insert(title);
+    songTable.insert(title, playlistID);
 }
 
 void SongListController::removeSong(int songID)
@@ -25,12 +27,20 @@ void SongListController::removeSong(int songID)
 
 void SongListController::loadPlaylist(int playlistId)
 {
+    qDebug() << "<SongListController::loadPlaylist playlistId = " << playlistId << ">";
+
     if(playlistId != INVALID_PLAYLIST_ID)
     {
         list<SongTable::Tuple> playlist = songTable.getPlaylist(playlistId);
 
+        qDebug() << "playlist loaded with " << playlist.size() << " elements";
+
         if(openedPlaylistId != INVALID_PLAYLIST_ID)
+        {
+            qDebug() << "Playlist with id " << openedPlaylistId << "was opened. Cleaning view";
+
             clearPlaylist();
+        }
 
         openedPlaylistId = playlistId;
 
@@ -39,6 +49,8 @@ void SongListController::loadPlaylist(int playlistId)
             emit songCreated(it->name, it->id);
         }
     }
+
+    qDebug() << "</SongListController::loadPlaylist>";
 }
 
 void SongListController::clearPlaylist(int playlistId)
