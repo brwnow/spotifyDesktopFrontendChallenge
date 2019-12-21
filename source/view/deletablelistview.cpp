@@ -4,6 +4,8 @@
 
 #include "deletableitem.hpp"
 
+#include <QDebug>
+
 #include <QVBoxLayout>
 
 using std::exception;
@@ -26,6 +28,8 @@ void DeletableListView::createItem(const QString &title, int id)
     DeletableItem *deletableItem = new DeletableItem(title, id);
     QListWidgetItem *item = new QListWidgetItem();
 
+    qDebug() << "<DeletableListView::createItem title = " << title << " id = " << id << ">";
+
     item->setSizeHint(deletableItem->sizeHint());
 
     connect(deletableItem, SIGNAL(deleteTriggered(int)), this, SIGNAL(itemDeleted(int)));
@@ -36,6 +40,8 @@ void DeletableListView::createItem(const QString &title, int id)
 
     listOfItems->addItem(item);
     listOfItems->setItemWidget(item, deletableItem);
+
+    qDebug() << "</DeletableListView::createItem>";
 }
 
 void DeletableListView::removeItem(int id)
@@ -83,6 +89,8 @@ void DeletableListView::setupConnections()
 
 void DeletableListView::onItemSelected(QListWidgetItem *item)
 {
+    qDebug() << "<DeletableListView::onItemSelected>";
+
     try
     {
         const DeletableItem *deletableItem = dynamic_cast<DeletableItem*>(listOfItems->itemWidget(item));
@@ -94,6 +102,8 @@ void DeletableListView::onItemSelected(QListWidgetItem *item)
     }
     catch(exception &ex)
     {
-
+        qDebug() << "exception msg \"" << ex.what() << "\"";
     }
+
+    qDebug() << "</DeletableListView::onItemSelected>";
 }

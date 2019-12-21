@@ -1,5 +1,8 @@
 #include "songtable.hpp"
 
+#include <QDebug>
+
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
@@ -40,10 +43,23 @@ void SongTable::insert(const QString &title, int playlistID)
     query.bindValue(0, title);
     query.bindValue(1, playlistID);
 
+    qDebug() << "<SongTable::insert title = " << title << " playlistID = " << playlistID << ">";
+    qDebug() << "Running query " << query.lastQuery();
+
     if(query.exec())
+    {
+        qDebug() << "Query executed succesfully";
+
         emit songInserted(title, query.lastInsertId().toInt());
+    }
     else
+    {
+        qDebug() << "Query error: " << query.lastError();
+
         emit insertionFailed(title);
+    }
+
+    qDebug() << "</SongTable::insert>";
 }
 
 void SongTable::remove(int id)
