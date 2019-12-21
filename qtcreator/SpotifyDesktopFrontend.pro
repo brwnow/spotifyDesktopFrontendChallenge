@@ -2,10 +2,10 @@ QT += core gui widgets sql network
 
 CONFIG += c++11
 
-CPPFLAGS = -Wall -Wextra -Werror
+CPPFLAGS = -Wall -Wextra
 
 CONFIG(release, debug|release) {
-    CPPFLAGS += -O3
+    CPPFLAGS += -Werror -O3
 }
 
 CONFIG(debug, debug|release) {
