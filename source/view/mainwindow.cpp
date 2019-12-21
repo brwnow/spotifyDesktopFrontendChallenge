@@ -18,10 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     setupConnections();
 }
 
-MainWindow::~MainWindow()
-{
-}
-
 MainWindow &MainWindow::getInstance()
 {
     static MainWindow instance;

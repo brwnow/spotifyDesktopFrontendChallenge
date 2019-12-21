@@ -12,7 +12,6 @@ class PlayerView : public QWidget
 
 public:
     PlayerView(QWidget *parent = nullptr);
-    ~PlayerView();
 
     bool getIsPlaying() const;
 

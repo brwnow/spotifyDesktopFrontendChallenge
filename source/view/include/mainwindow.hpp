@@ -15,8 +15,6 @@ public:
     MainWindow(MainWindow const &) = delete;
     void operator = (MainWindow const &) = delete;
 
-    ~MainWindow();
-
     static MainWindow& getInstance();
 
     DeletableListView* getPlaylistContainer();

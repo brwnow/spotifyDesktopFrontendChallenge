@@ -12,11 +12,6 @@ PlayerView::PlayerView(QWidget *parent) :
     setupConnections();
 }
 
-PlayerView::~PlayerView()
-{
-
-}
-
 bool PlayerView::getIsPlaying() const
 {
     return isPlaying;

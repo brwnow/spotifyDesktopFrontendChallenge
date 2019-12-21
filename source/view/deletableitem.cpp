@@ -11,11 +11,6 @@ DeletableItem::DeletableItem(const QString &title, int id, QWidget *parent) :
     setupConnections();
 }
 
-DeletableItem::~DeletableItem()
-{
-
-}
-
 int DeletableItem::getID() const
 {
     return id;
