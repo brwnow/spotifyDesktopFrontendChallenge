@@ -4,6 +4,10 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QApplication>
+#include <QDesktopWidget>
+
+const double MainWindow::windowPercentageOfDesktop = 0.6;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -44,6 +48,11 @@ void MainWindow::setupWindow()
 {
     this->setWindowTitle(QString("Spotify Desktop"));
     this->setCentralWidget(new QWidget());
+
+    setGeometry(QApplication::desktop()->size().width() * (1.0 - windowPercentageOfDesktop) / 2.0,
+                QApplication::desktop()->size().height() * (1.0 - windowPercentageOfDesktop) / 2.0,
+                QApplication::desktop()->size().width() * windowPercentageOfDesktop,
+                QApplication::desktop()->size().height() * windowPercentageOfDesktop);
 }
 
 void MainWindow::setupWidgets()
