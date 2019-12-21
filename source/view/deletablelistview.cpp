@@ -16,7 +16,7 @@ DeletableListView::DeletableListView(QWidget *parent) :
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setVerticalScrollMode(QAbstractItemView::ScrollMode::ScrollPerPixel);
 
-    connect(this, SIGNAL(itemActivated(QListWidgetItem*)),
+    connect(this, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(onItemSelected(QListWidgetItem*)));
 }
 
