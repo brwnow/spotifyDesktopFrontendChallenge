@@ -10,7 +10,7 @@ SongListController::SongListController(QSqlDatabase &database, QObject *parent) 
     connect(&songTable, SIGNAL(songInserted(const QString&, int)),
             this, SIGNAL(songCreated(const QString&, int)));
     connect(&songTable, SIGNAL(songRemoved(int)),
-            this, SLOT(songRemoved(int)));
+            this, SIGNAL(songRemoved(int)));
 }
 
 void SongListController::createSong(const QString &title, int playlistID)

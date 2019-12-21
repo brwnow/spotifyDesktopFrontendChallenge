@@ -167,7 +167,7 @@ void Core::bindMVC()
     connect(playlistController, SIGNAL(playlistRemoved(int)),
             songListController, SLOT(clearPlaylist(int)));
 
-    connect(songListController, SIGNAL(songCreated(const QStrin&, int)),
+    connect(songListController, SIGNAL(songCreated(const QString&, int)),
             mainWindow.getSongListView(), SLOT(createItem(const QString&, int)));
     connect(songListController, SIGNAL(songRemoved(int)),
             mainWindow.getSongListView(), SLOT(removeItem(int)));
