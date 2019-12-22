@@ -44,8 +44,9 @@ QString PlaylistTable::getPlaylistTitle(int id)
 
 list<PlaylistTable::Tuple> PlaylistTable::getAllPlaylists()
 {
-    QSqlQuery query(QString("SELECT ") + ID_FIELD + ", " + NAME_FIELD + " FROM "+ TABLE_NAME,
-                    database);
+    QSqlQuery query(database);
+    query.prepare(QString("SELECT ") + ID_FIELD + ", " + NAME_FIELD +
+                  " FROM "+ TABLE_NAME);
     int idFieldNum = query.record().indexOf(ID_FIELD);
     int nameFieldNum = query.record().indexOf(NAME_FIELD);
     list<Tuple> listOfPlaylists;
