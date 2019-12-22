@@ -59,7 +59,8 @@ HEADERS += \
     $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp
 
 RESOURCES += \
-    $$RESOURCEPATH/resources.qrc
+    $$RESOURCEPATH/data/data.qrc \
+    $$RESOURCEPATH/icons/icons.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
