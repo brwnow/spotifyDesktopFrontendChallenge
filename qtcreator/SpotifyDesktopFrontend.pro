@@ -25,6 +25,8 @@ INCLUDEPATH += \
     $$SOURCEPATH/model/network/include \
     $$SOURCEPATH/controller/include
 
+RESOURCEPATH = ../resources
+
 SOURCES += \
     $$SOURCEPATH/main.cpp \
     $$SOURCEPATH/core.cpp \
@@ -57,7 +59,7 @@ HEADERS += \
     $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp
 
 RESOURCES += \
-    resources.qrc
+    $$RESOURCEPATH/resources.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
