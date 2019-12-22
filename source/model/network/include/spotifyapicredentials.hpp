@@ -13,6 +13,7 @@ public:
 
 private:
     QString clientId, clientSecret;
+
 };
 
 #endif // SPOTIFY_API_CREDENTIALS_HPP
