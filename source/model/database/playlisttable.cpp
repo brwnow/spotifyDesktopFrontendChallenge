@@ -1,5 +1,7 @@
 #include "playlisttable.hpp"
 
+#include <QDebug>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QVariant>
@@ -15,14 +17,14 @@ PlaylistTable::PlaylistTable(QSqlDatabase &database) :
 
 list<PlaylistTable::Tuple> PlaylistTable::getAllPlaylists()
 {
-    QSqlQuery query(database);
-    query.prepare("SELECT ?, ? FROM ?");
-    query.bindValue(0, ID_FIELD);
-    query.bindValue(1, NAME_FIELD);
-    query.bindValue(2, TABLE_NAME);
+    QSqlQuery query(QString("SELECT ") + ID_FIELD + ", " + NAME_FIELD + " FROM "+ TABLE_NAME,
+                    database);
     int idFieldNum = query.record().indexOf(ID_FIELD);
     int nameFieldNum = query.record().indexOf(NAME_FIELD);
     list<Tuple> listOfPlaylists;
+
+    qDebug() << "<PlaylistTable::getAllPlaylists>";
+    qDebug() << "Query:" << query.lastQuery();
 
     while(query.next())
     {
@@ -32,33 +34,44 @@ list<PlaylistTable::Tuple> PlaylistTable::getAllPlaylists()
         listOfPlaylists.push_back(Tuple(id, name));
     }
 
+    qDebug() << "Query exec result:" << query.lastError();
+    qDebug() << "</PlaylistTable::getAllPlaylists>";
+
     return listOfPlaylists;
 }
 
 void PlaylistTable::insert(const QString &title)
 {
     QSqlQuery query(database);
-    query.prepare("INSERT INTO ? (?) VALUES (?)");
-    query.bindValue(0, TABLE_NAME);
-    query.bindValue(1, NAME_FIELD);
-    query.bindValue(2, title);
+    query.prepare(QString("INSERT INTO ") + TABLE_NAME + "(" + NAME_FIELD + ")" + " VALUES (?)");
+    query.bindValue(0, title);
+
+    qDebug() << "<PlaylistTable::insert title =" << title << ">";
 
     if(query.exec())
         emit playlistInserted(title, query.lastInsertId().toInt());
     else
         emit insertionFailed(title);
+
+    qDebug() << "Query:" << query.lastQuery();
+    qDebug() << "Query exec result:" << query.lastError();
+    qDebug() << "</PlaylistTable::insert>";
 }
 
 void PlaylistTable::remove(int id)
 {
     QSqlQuery query(database);
-    query.prepare("DELETE FROM ? WHERE ? = ?");
-    query.bindValue(0, TABLE_NAME);
-    query.bindValue(1, ID_FIELD);
-    query.bindValue(2, id);
+    query.prepare(QString("DELETE FROM ") + TABLE_NAME + " WHERE " + ID_FIELD + " = ?");
+    query.bindValue(0, id);
+
+    qDebug() << "<PlaylistTable::remove id =" << id << ">";
+    qDebug() << "Query:" << query.lastQuery();
 
     if(query.exec())
         emit playlistRemoved(id);
+
+    qDebug() << "Query exec result:" << query.lastError();
+    qDebug() << "</PlaylistTable::remove>";
 }
 
 PlaylistTable::Tuple::Tuple(int id, const QString name) :
