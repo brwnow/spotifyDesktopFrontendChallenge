@@ -114,6 +114,8 @@ void MainWindow::setupConnections()
     connect(newPlaylistTextEdit, SIGNAL(returnPressed()),
             this, SLOT(onAddPlaylistTriggered()));
     connect(searchButton, SIGNAL(clicked()), this, SLOT(onSongSearchClicked()));
+    connect(searchResultList, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(onSearchResultItemClicked(QListWidgetItem*)));
 }
 
 void MainWindow::onAddPlaylistTriggered()
@@ -138,5 +140,10 @@ void MainWindow::onSongSearchClicked()
 
         emit songSearchRequested(searchQuery);
     }
+}
+
+void MainWindow::onSearchResultItemClicked(QListWidgetItem *item)
+{
+    emit saveSongFromSearch(searchResultList->row(item));
 }
 
