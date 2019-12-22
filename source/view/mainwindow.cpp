@@ -83,6 +83,10 @@ void MainWindow::setupWidgets()
     songSearchTextEdit = new QLineEdit();
     searchButton = new QPushButton("Search");
     searchResultList = new QListWidget();
+
+    QFont playlistTitleFont = QGuiApplication::font();
+    playlistTitleFont.setPointSize(25);
+    playlistTitle->setFont(playlistTitleFont);
 }
 
 void MainWindow::setupLayout()
