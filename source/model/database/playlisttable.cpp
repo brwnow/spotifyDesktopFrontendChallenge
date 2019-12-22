@@ -15,10 +15,48 @@ PlaylistTable::PlaylistTable(QSqlDatabase &database) :
 {
 }
 
+QString PlaylistTable::getPlaylistTitle(int id)
+{
+    QSqlQuery query(database);
+    QString name;
+
+    qDebug() << "<PlaylistTable::selectPlaylist id =" << id << ">";
+
+    query.prepare(QString("SELECT ") + NAME_FIELD +
+                  " FROM "+ TABLE_NAME + " WHERE " + ID_FIELD + " = ?");
+    query.bindValue(0, id);
+
+    if(!query.exec())
+    {
+        qCritical() << "Query error:" << query.lastError();
+    }
+    else
+    {
+        int nameFieldNum = query.record().indexOf(NAME_FIELD);
+
+        qDebug() << "Query:" << query.lastQuery();
+
+        if(query.next())
+        {
+            name = query.value(nameFieldNum).toString();
+            qDebug() << "Query got playlist name:" << name;
+        }
+        else
+        {
+            name = "";
+            qCritical() << "Playlist not found in database";
+        }
+    }
+
+    qDebug() << "</PlaylistTable::selectPlaylist return =" << name << ">";
+
+    return name;
+}
+
 list<PlaylistTable::Tuple> PlaylistTable::getAllPlaylists()
 {
-    QSqlQuery query(QString("SELECT ") + ID_FIELD + ", " + NAME_FIELD + " FROM "+ TABLE_NAME,
-                    database);
+    QSqlQuery query(QString("SELECT ") + ID_FIELD + ", " + NAME_FIELD +
+                    " FROM "+ TABLE_NAME, database);
     int idFieldNum = query.record().indexOf(ID_FIELD);
     int nameFieldNum = query.record().indexOf(NAME_FIELD);
     list<Tuple> listOfPlaylists;

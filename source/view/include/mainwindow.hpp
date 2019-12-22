@@ -27,6 +27,8 @@ signals:
     void saveSongFromSearch(int index);
 
 public slots:
+    void setCurrentPlaylistTitle(const QString &title);
+    void setNoCurrentPlaylist();
     void appendSongSearchResult(const QString &songName);
     void clearSongSearchResults();
 
@@ -38,6 +40,8 @@ private:
     PlayerView *playerView;
     QLineEdit *newPlaylistTextEdit;
     QPushButton *addPlaylistButton;
+
+    QLabel *playlistTitle;
     QLineEdit *songSearchTextEdit;
     QPushButton *searchButton;
     QListWidget *searchResultList;
