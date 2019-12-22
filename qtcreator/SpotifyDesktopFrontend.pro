@@ -1,4 +1,4 @@
-QT += core gui widgets sql network
+QT += core gui widgets sql network multimedia
 
 CONFIG += c++11
 
