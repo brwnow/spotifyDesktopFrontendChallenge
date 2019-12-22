@@ -16,3 +16,11 @@ This project build was tested for QtCreator 4.11 and Qt 5.14 using MinGW 5.3
 `qt.network.ssl: QSslSocket: cannot call unresolved function ERR_get_error`  
 
 In order to fix this, you must copy files `libeay32.dll` and `ssleay32.dll` from `Qt/Tools/MinGW_folder/opt/bin` to `Qt/Tools/MinGW_folder/bin`  
+
+## Features
+* Creating and saving custom playlists locally
+* Removing local playlists
+* Searching for songs in spotify database using keywords
+* Adding songs found in search to local playlists
+* Removing songs from local playlists
+* _Playing local playlists_ *missing*
