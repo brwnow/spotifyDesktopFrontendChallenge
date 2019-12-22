@@ -38,6 +38,8 @@ private:
     PlayerView *playerView;
     QLineEdit *newPlaylistTextEdit;
     QPushButton *addPlaylistButton;
+
+    QLabel *playlistTitle;
     QLineEdit *songSearchTextEdit;
     QPushButton *searchButton;
     QListWidget *searchResultList;

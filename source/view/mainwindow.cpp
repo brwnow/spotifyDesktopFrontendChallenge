@@ -68,6 +68,8 @@ void MainWindow::setupWidgets()
     playerView = new PlayerView();
     newPlaylistTextEdit = new QLineEdit();
     addPlaylistButton = new QPushButton("+");
+
+    playlistTitle = new QLabel();
     songSearchTextEdit = new QLineEdit();
     searchButton = new QPushButton("Search");
     searchResultList = new QListWidget();
@@ -89,13 +91,15 @@ void MainWindow::setupLayout()
     playlistContainerWdgt->setLayout(playlistContainerLayout);
 
     QGridLayout *songListLayout = new QGridLayout();
-    songListLayout->addWidget(songSearchTextEdit, 0, 0);
-    songListLayout->addWidget(searchButton, 0, 1);
-    songListLayout->addWidget(searchResultList, 1, 0, 1, 2);
-    songListLayout->addWidget(songListView, 2, 0, 1, 2);
+    songListLayout->addWidget(playlistTitle, 0, 0, 1, 2, Qt::AlignCenter);
+    songListLayout->addWidget(songSearchTextEdit, 1, 0);
+    songListLayout->addWidget(searchButton, 1, 1);
+    songListLayout->addWidget(searchResultList, 2, 0, 1, 2);
+    songListLayout->addWidget(songListView, 3, 0, 1, 2);
     songListLayout->setRowStretch(0, 0);
     songListLayout->setRowStretch(1, 0);
-    songListLayout->setRowStretch(2, 1);
+    songListLayout->setRowStretch(2, 0);
+    songListLayout->setRowStretch(3, 1);
     songListLayout->setColumnStretch(0, 1);
     songListLayout->setColumnStretch(1, 0);
 
