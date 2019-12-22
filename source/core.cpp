@@ -91,10 +91,12 @@ void Core::bindMVC()
 {
     qDebug() << "Binding Core, Models, Views and Controllers...";
 
+    // Core starting signals
     connect(this, SIGNAL(mustLoadAppData()), playlistController, SLOT(loadView()));
     connect(this, SIGNAL(mustStartNetwork()),
             spotifWebApiController, SLOT(obtainAccessToken()));
 
+    // PlaylistController signals
     connect(playlistController, SIGNAL(playlistCreated(const QString&, int)),
             mainWindow.getPlaylistContainer(), SLOT(createItem(const QString&, int)));
     connect(playlistController, SIGNAL(playlistRemoved(int)),
@@ -105,6 +107,7 @@ void Core::bindMVC()
     connect(playlistController, SIGNAL(playlistRemoved(int)),
             songListController, SLOT(clearPlaylist(int)));
 
+    // Binding SongListController to MainWindow and vice versa
     connect(songListController, SIGNAL(songCreated(const QString&, int)),
             mainWindow.getSongListView(), SLOT(createItem(const QString&, int)));
     connect(songListController, SIGNAL(songRemoved(int)),
@@ -112,6 +115,7 @@ void Core::bindMVC()
     connect(songListController, SIGNAL(playlistCleared()),
             mainWindow.getSongListView(), SLOT(clearItems()));
 
+    // Binding SpotifyWebApiController signals to proper slots
     connect(spotifWebApiController,
             SIGNAL(songPersistRequest(const QString&, const QString&, const QString&)),
             songListController,
@@ -121,6 +125,7 @@ void Core::bindMVC()
     connect(spotifWebApiController, SIGNAL(appendSongToSearchResults(const QString&)),
             &mainWindow, SLOT(appendSongSearchResult(const QString&)));
 
+    // Binding MainWindow to proper conntrollers
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemDeleted(int)),
             playlistController, SLOT(removePlaylist(int)));
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicked(int)),
