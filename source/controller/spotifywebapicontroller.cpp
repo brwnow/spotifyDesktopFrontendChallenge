@@ -68,12 +68,9 @@ void SpotifyWebApiController::obtainAccessToken()
 void SpotifyWebApiController::searchSongs(const QString &query)
 {
     QNetworkRequest request(API_URL + SEARCH_ENDPOINT + query + SEARCH_TYPE_PARAM);
-/*
-    request.setRawHeader(QByteArray("Authorization"),
-                         QByteArray("Bearer ").append(token));*/
 
     request.setRawHeader(QByteArray("Authorization"),
-                         QByteArray("Bearer ").append("BQA1wk4_FwJxW2Lfaj6imKxBGFPfV_ww86SLjvmlvVb04w4_vdv8BbPiGGJuJgKfQ-sRyqFKy_xeRD_0qUs"));
+                         QByteArray("Bearer ").append(token));
 
     networkAccessManager.get(request);
 }
