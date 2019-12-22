@@ -10,6 +10,11 @@ PlaylistController::PlaylistController(QSqlDatabase &database, QObject *parent) 
             this, SIGNAL(playlistRemoved(int)));
 }
 
+void PlaylistController::selectPlaylist(int id)
+{
+    emit playlistSelected(playlistTable.getPlaylistTitle(id));
+}
+
 void PlaylistController::createPlaylist(const QString &title)
 {
     playlistTable.insert(title);
