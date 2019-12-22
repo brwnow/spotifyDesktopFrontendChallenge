@@ -15,9 +15,24 @@ SongListController::SongListController(QSqlDatabase &database, QObject *parent) 
             this, SIGNAL(songRemoved(int)));
 }
 
-void SongListController::createSong(const QString &title, int playlistID)
+void SongListController::createSong(const QString &title,
+                                    const QString &spotifyId,
+                                    const QString &spotifyUri)
 {
-    songTable.insert(title, playlistID);
+    qDebug() << "<SongListController::createSong title =" << title <<
+                " spotifyId =" << spotifyId << " spotifyUri =" << spotifyUri << ">";
+    if(openedPlaylistId != INVALID_PLAYLIST_ID)
+    {
+        qDebug() << "Inserting song in playlist id" << openedPlaylistId;
+
+        songTable.insert(title, openedPlaylistId, spotifyId, spotifyUri);
+    }
+    else
+    {
+        qDebug() << "Song insertion failed. There is no opened playlist";
+    }
+
+    qDebug() << "</SongListController::createSong>";
 }
 
 void SongListController::removeSong(int songID)

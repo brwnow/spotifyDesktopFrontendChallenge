@@ -28,7 +28,10 @@ public:
     SongTable(QSqlDatabase &database, QObject *parent = nullptr);
 
     list<Tuple> getPlaylist(int playlistID);
-    void insert(const QString &title, int playlistID);
+    void insert(const QString &title,
+                int playlistID,
+                const QString &spotifyId,
+                const QString &spotifyUri);
     void remove(int id);
 
 signals:

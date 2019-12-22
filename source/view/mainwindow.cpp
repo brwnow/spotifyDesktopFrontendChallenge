@@ -124,6 +124,7 @@ void MainWindow::setupConnections()
     connect(newPlaylistTextEdit, SIGNAL(returnPressed()),
             this, SLOT(onAddPlaylistTriggered()));
     connect(searchButton, SIGNAL(clicked()), this, SLOT(onSongSearchClicked()));
+    connect(songSearchTextEdit, SIGNAL(returnPressed()), this, SLOT(onSongSearchClicked()));
     connect(searchResultList, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(onSearchResultItemClicked(QListWidgetItem*)));
 }

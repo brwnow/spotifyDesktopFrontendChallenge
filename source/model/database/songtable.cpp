@@ -51,14 +51,21 @@ list<SongTable::Tuple> SongTable::getPlaylist(int playlistID)
     return playlist;
 }
 
-void SongTable::insert(const QString &title, int playlistID)
+void SongTable::insert(const QString &title,
+                       int playlistID,
+                       const QString &spotifyId,
+                       const QString &spotifyUri)
 {
     QSqlQuery query(database);
-    query.prepare("INSERT INTO SONG (NAME, PLAYLIST_ID) VALUES (?, ?)");
+    query.prepare("INSERT INTO SONG (NAME, PLAYLIST_ID, SPOTIFY_ID, SPOTIFY_URI) "
+                  "VALUES (?, ?, ?, ?)");
     query.bindValue(0, title);
     query.bindValue(1, playlistID);
+    query.bindValue(2, spotifyId);
+    query.bindValue(3, spotifyUri);
 
-    qDebug() << "<SongTable::insert title = " << title << " playlistID = " << playlistID << ">";
+    qDebug() << "<SongTable::insert title =" << title << " playlistID =" << playlistID <<
+                "spotifyId =" << spotifyId << " spotifyUri =" << spotifyUri << ">";
     qDebug() << "Running query " << query.lastQuery();
 
     if(query.exec())

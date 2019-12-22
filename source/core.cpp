@@ -128,6 +128,8 @@ bool Core::createDatabaseSchema()
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "NAME VARCHAR(100),"
                     "PLAYLIST_ID INTEGER,"
+                    "SPOTIFY_ID VARCHAR(100),"
+                    "SPOTIFY_URI VARCHAR(100),"
                     "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))"))
     {
         qDebug() << query.lastError();
@@ -177,6 +179,10 @@ void Core::bindMVC()
     connect(songListController, SIGNAL(playlistCleared()),
             mainWindow.getSongListView(), SLOT(clearItems()));
 
+    connect(spotifWebApiController,
+            SIGNAL(songPersistRequest(const QString&, const QString&, const QString&)),
+            songListController,
+            SLOT(createSong(const QString &, const QString &, const QString &)));
     connect(spotifWebApiController, SIGNAL(clearSongSearchResults()),
             &mainWindow, SLOT(clearSongSearchResults()));
     connect(spotifWebApiController, SIGNAL(appendSongToSearchResults(const QString&)),
@@ -192,6 +198,8 @@ void Core::bindMVC()
             playlistController, SLOT(createPlaylist(const QString&)));
     connect(&mainWindow, SIGNAL(songSearchRequested(const QString&)),
             spotifWebApiController, SLOT(searchSongs(const QString&)));
+    connect(&mainWindow, SIGNAL(saveSongFromSearch(int)),
+            spotifWebApiController, SLOT(songSaveRequested(int)));
 }
 
 void Core::sendLoadAppSignal()
