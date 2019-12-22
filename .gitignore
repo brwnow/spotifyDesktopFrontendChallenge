@@ -1,0 +1,4 @@
+# Qt Creator local configuration files and build
+*.autosave
+*.user
+build*

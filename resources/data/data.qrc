@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/api/credentials">
+        <file>api_credentials.txt</file>
+    </qresource>
+</RCC>
