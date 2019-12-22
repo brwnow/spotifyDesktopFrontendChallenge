@@ -23,6 +23,8 @@ int Core::run(QApplication &app)
         isCoreRunning = true;
         runMutex.unlock();
 
+        qDebug() << "Application is starting...";
+
         bool appInitializationFailed = false;
         Core core(app);
 
@@ -35,10 +37,14 @@ int Core::run(QApplication &app)
 
         if(!appInitializationFailed)
         {
+            qDebug() << "Application started successfully";
+
             return core.exec();
         }
         else
         {
+            qDebug() << "Application failed to start";
+
             QMessageBox::critical(nullptr, errorMsgTitle, errorMsg, QMessageBox::Ok);
 
             return 0;
@@ -74,6 +80,8 @@ int Core::exec()
 
 void Core::initControllers()
 {
+    qDebug() << "Initializing controllers...";
+
     playlistController = new PlaylistController(database.getDbObject(), this);
     songListController = new SongListController(database.getDbObject(), this);
     spotifWebApiController = new SpotifyWebApiController(this);
@@ -81,6 +89,8 @@ void Core::initControllers()
 
 void Core::bindMVC()
 {
+    qDebug() << "Binding Core, Models, Views and Controllers...";
+
     connect(this, SIGNAL(mustLoadAppData()), playlistController, SLOT(loadView()));
     connect(this, SIGNAL(mustStartNetwork()),
             spotifWebApiController, SLOT(obtainAccessToken()));

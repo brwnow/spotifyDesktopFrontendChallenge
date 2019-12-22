@@ -28,6 +28,9 @@ QSqlDatabase &Database::getDbObject()
 bool Database::open()
 {
     bool mustCreateSchema = !QFileInfo::exists(databaseName);
+    bool success = true;
+
+    qDebug() << "<Database::open>";
 
     database = QSqlDatabase::addDatabase(databaseDriver);
     database.setDatabaseName(databaseName);
@@ -38,14 +41,14 @@ bool Database::open()
         {
             if(!createSchema())
             {
+                qCritical() << "Failed to create database schema";
+
                 emit errorMsgSent("Database query error",
                                   "Error while creating database tables");
 
-                return false;
+                success = false;
             }
         }
-
-        return true;
     }
     else
     {
@@ -54,8 +57,12 @@ bool Database::open()
         emit errorMsgSent("Cannot open database",
                           "Unable to establish a database connection");
 
-        return false;
+        success = false;
     }
+
+    qDebug() << "<Database::open return =" << success << ">";
+
+    return success;
 }
 
 void Database::close()

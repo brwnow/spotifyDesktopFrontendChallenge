@@ -97,8 +97,21 @@ void SongTable::remove(int id)
     query.prepare(QString("DELETE FROM ") + TABLE_NAME + " WHERE " + ID_FIELD + " = ?");
     query.bindValue(0, id);
 
+    qDebug() << "<SongTable::remove id =" << id << ">";
+    qDebug() << "Running query" << query.lastQuery();
+
     if(query.exec())
+    {
+        qDebug() << "Query executed succesfully";
+
         emit songRemoved(id);
+    }
+    else
+    {
+        qCritical() << "Query error:" << query.lastError();
+    }
+
+    qDebug() << "</SongTable::remove>";
 }
 
 SongTable::Tuple::Tuple(int id, const QString &name) :
