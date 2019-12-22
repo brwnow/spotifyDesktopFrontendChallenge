@@ -40,6 +40,16 @@ PlayerView *MainWindow::getPlayerView()
     return playerView;
 }
 
+void MainWindow::appendSongSearchResult(const QString &songName)
+{
+    searchResultList->addItem(new QListWidgetItem(songName));
+}
+
+void MainWindow::clearSongSearchResults()
+{
+    searchResultList->clear();
+}
+
 void MainWindow::setupWindow()
 {
     this->setWindowTitle("Spotify Desktop");
@@ -58,6 +68,9 @@ void MainWindow::setupWidgets()
     playerView = new PlayerView();
     newPlaylistTextEdit = new QLineEdit();
     addPlaylistButton = new QPushButton("+");
+    songSearchTextEdit = new QLineEdit();
+    searchButton = new QPushButton("Search");
+    searchResultList = new QListWidget();
 }
 
 void MainWindow::setupLayout()
@@ -75,8 +88,22 @@ void MainWindow::setupLayout()
     playlistContainerWdgt->setTitle("Playlists");
     playlistContainerWdgt->setLayout(playlistContainerLayout);
 
+    QGridLayout *songListLayout = new QGridLayout();
+    songListLayout->addWidget(songSearchTextEdit, 0, 0);
+    songListLayout->addWidget(searchButton, 0, 1);
+    songListLayout->addWidget(searchResultList, 1, 0, 1, 2);
+    songListLayout->addWidget(songListView, 2, 0, 1, 2);
+    songListLayout->setRowStretch(0, 0);
+    songListLayout->setRowStretch(1, 0);
+    songListLayout->setRowStretch(2, 1);
+    songListLayout->setColumnStretch(0, 1);
+    songListLayout->setColumnStretch(1, 0);
+
+    QGroupBox *songListWidget = new QGroupBox();
+    songListWidget->setLayout(songListLayout);
+
     QSplitter *splitter = new QSplitter();
-    splitter->addWidget(songListView);
+    splitter->addWidget(songListWidget);
     splitter->addWidget(playlistContainerWdgt);
     splitter->setStretchFactor(0, 1);
     splitter->setStretchFactor(1, 0);
@@ -96,6 +123,9 @@ void MainWindow::setupConnections()
             this, SLOT(onAddPlaylistTriggered()));
     connect(newPlaylistTextEdit, SIGNAL(returnPressed()),
             this, SLOT(onAddPlaylistTriggered()));
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(onSongSearchClicked()));
+    connect(searchResultList, SIGNAL(itemClicked(QListWidgetItem*)),
+            this, SLOT(onSearchResultItemClicked(QListWidgetItem*)));
 }
 
 void MainWindow::onAddPlaylistTriggered()
@@ -108,5 +138,22 @@ void MainWindow::onAddPlaylistTriggered()
 
         emit playlistAddRequested(playlistTitle);
     }
+}
+
+void MainWindow::onSongSearchClicked()
+{
+    QString searchQuery = songSearchTextEdit->text();
+
+    if(!searchQuery.isEmpty())
+    {
+        songSearchTextEdit->clear();
+
+        emit songSearchRequested(searchQuery);
+    }
+}
+
+void MainWindow::onSearchResultItemClicked(QListWidgetItem *item)
+{
+    emit saveSongFromSearch(searchResultList->row(item));
 }
 

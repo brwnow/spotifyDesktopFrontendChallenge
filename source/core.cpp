@@ -151,11 +151,14 @@ void Core::initControllers()
 {
     playlistController = new PlaylistController(database, this);
     songListController = new SongListController(database, this);
+    spotifWebApiController = new SpotifyWebApiController(this);
 }
 
 void Core::bindMVC()
 {
     connect(this, SIGNAL(mustLoadAppData()), playlistController, SLOT(loadView()));
+    connect(this, SIGNAL(mustStartNetwork()),
+            spotifWebApiController, SLOT(obtainAccessToken()));
 
     connect(playlistController, SIGNAL(playlistCreated(const QString&, int)),
             mainWindow.getPlaylistContainer(), SLOT(createItem(const QString&, int)));
@@ -163,7 +166,7 @@ void Core::bindMVC()
             mainWindow.getPlaylistContainer(), SLOT(removeItem(int)));
 
     // SongListController must be notified when a playlist is deleted. If the opened playlist
-    // Is deleted, SongListController must clean the SongListView
+    // is deleted, SongListController must clean the SongListView
     connect(playlistController, SIGNAL(playlistRemoved(int)),
             songListController, SLOT(clearPlaylist(int)));
 
@@ -174,6 +177,11 @@ void Core::bindMVC()
     connect(songListController, SIGNAL(playlistCleared()),
             mainWindow.getSongListView(), SLOT(clearItems()));
 
+    connect(spotifWebApiController, SIGNAL(clearSongSearchResults()),
+            &mainWindow, SLOT(clearSongSearchResults()));
+    connect(spotifWebApiController, SIGNAL(appendSongToSearchResults(const QString&)),
+            &mainWindow, SLOT(appendSongSearchResult(const QString&)));
+
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemDeleted(int)),
             playlistController, SLOT(removePlaylist(int)));
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicked(int)),
@@ -181,10 +189,13 @@ void Core::bindMVC()
     connect(mainWindow.getSongListView(), SIGNAL(itemDeleted(int)),
             songListController, SLOT(removeSong(int)));
     connect(&mainWindow, SIGNAL(playlistAddRequested(const QString&)),
-            playlistController, SLOT(createPlaylist(const QString &)));
+            playlistController, SLOT(createPlaylist(const QString&)));
+    connect(&mainWindow, SIGNAL(songSearchRequested(const QString&)),
+            spotifWebApiController, SLOT(searchSongs(const QString&)));
 }
 
 void Core::sendLoadAppSignal()
 {
     emit mustLoadAppData();
+    emit mustStartNetwork();
 }

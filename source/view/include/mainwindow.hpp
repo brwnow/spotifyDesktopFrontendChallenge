@@ -23,6 +23,12 @@ public:
 
 signals:
     void playlistAddRequested(const QString &title);
+    void songSearchRequested(const QString &searchQuery);
+    void saveSongFromSearch(int index);
+
+public slots:
+    void appendSongSearchResult(const QString &songName);
+    void clearSongSearchResults();
 
 private:
     // Percentage of desktop dimensions that MainWindow will assume
@@ -32,6 +38,9 @@ private:
     PlayerView *playerView;
     QLineEdit *newPlaylistTextEdit;
     QPushButton *addPlaylistButton;
+    QLineEdit *songSearchTextEdit;
+    QPushButton *searchButton;
+    QListWidget *searchResultList;
 
     MainWindow(QWidget *parent = nullptr);
 
@@ -42,6 +51,8 @@ private:
 
 private slots:
     void onAddPlaylistTriggered();
+    void onSongSearchClicked();
+    void onSearchResultItemClicked(QListWidgetItem *item);
 
 };
 #endif // MAINWINDOW_HPP
