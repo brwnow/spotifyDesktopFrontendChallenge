@@ -1,5 +1,6 @@
 #include "deletableitem.hpp"
 
+#include <QApplication>
 #include <QVBoxLayout>
 
 DeletableItem::DeletableItem(const QString &title, int id, QWidget *parent) :

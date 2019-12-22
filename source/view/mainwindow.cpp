@@ -123,6 +123,7 @@ void MainWindow::setupLayout()
     songListLayout->setColumnStretch(1, 0);
 
     QGroupBox *songListWidget = new QGroupBox();
+    songListWidget->setTitle("Songs");
     songListWidget->setLayout(songListLayout);
 
     QSplitter *splitter = new QSplitter();
