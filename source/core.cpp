@@ -134,7 +134,7 @@ void Core::bindMVC()
             playlistController, SLOT(removePlaylist(int)));
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicked(int)),
             songListController, SLOT(loadPlaylist(int)));
-    connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicekd(int)),
+    connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicked(int)),
             playlistController, SLOT(selectPlaylist(int)));
     connect(mainWindow.getSongListView(), SIGNAL(itemDeleted(int)),
             songListController, SLOT(removeSong(int)));
