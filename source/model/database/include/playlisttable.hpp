@@ -13,6 +13,7 @@ class PlaylistTable : public QObject
     Q_OBJECT
 
 public:
+    static const QString TABLE_NAME;
     static const QString ID_FIELD;
     static const QString NAME_FIELD;
 

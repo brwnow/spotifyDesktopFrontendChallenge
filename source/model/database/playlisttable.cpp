@@ -4,6 +4,7 @@
 #include <QSqlRecord>
 #include <QVariant>
 
+const QString PlaylistTable::TABLE_NAME("PLAYLIST");
 const QString PlaylistTable::ID_FIELD("ID");
 const QString PlaylistTable::NAME_FIELD("NAME");
 
