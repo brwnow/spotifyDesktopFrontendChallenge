@@ -70,9 +70,18 @@ void PlayerView::setupWidgets()
 {
     songName = new QLabel();
     currentTime = new QLabel("00:00");
-    playPauseButton = new QPushButton("Play");
-    previousSongButton = new QPushButton("<<");
-    nextSongButton = new QPushButton(">>");
+    playPauseButton = new QPushButton();
+    playPauseButton->setIcon(QIcon(":/icons/play.png"));
+    playPauseButton->setIconSize(QSize(32, 32));
+    playPauseButton->setFlat(true);
+    previousSongButton = new QPushButton();
+    previousSongButton->setIcon(QIcon(":/icons/prev.png"));
+    previousSongButton->setIconSize(QSize(32, 32));
+    previousSongButton->setFlat(true);
+    nextSongButton = new QPushButton();
+    nextSongButton->setIcon(QIcon(":/icons/next.png"));
+    nextSongButton->setIconSize(QSize(32, 32));
+    nextSongButton->setFlat(true);
 
     navigationBar = new QSlider(Qt::Orientation::Horizontal);
     navigationBar->setTracking(false);

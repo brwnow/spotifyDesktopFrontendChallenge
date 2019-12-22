@@ -19,7 +19,15 @@ int DeletableItem::getID() const
 void DeletableItem::setupWidgets(const QString &title)
 {
     this->title = new QLabel(title);
-    deleteButton = new QPushButton(QString("Del"));
+    QFont titleFont = QGuiApplication::font();
+    titleFont.setPointSize(18);
+    this->title->setFont(titleFont);
+
+    deleteButton = new QPushButton();
+    deleteButton->setIcon(QIcon(":/icons/remove.png"));
+    deleteButton->setIconSize(QSize(24, 24));
+    deleteButton->setFlat(true);
+    deleteButton->setToolTip("Delete an item from the list");
 }
 
 void DeletableItem::setupLayout()
