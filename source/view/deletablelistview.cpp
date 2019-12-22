@@ -10,8 +10,11 @@
 
 using std::exception;
 
+const int DeletableListView::INVALID_POINT_SIZE = -1;
+
 DeletableListView::DeletableListView(QWidget *parent) :
-    QListWidget(parent)
+    QListWidget(parent),
+    itemTitlePointSize(INVALID_POINT_SIZE)
 {
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setVerticalScrollMode(QAbstractItemView::ScrollMode::ScrollPerPixel);
@@ -20,10 +23,18 @@ DeletableListView::DeletableListView(QWidget *parent) :
             this, SLOT(onItemSelected(QListWidgetItem*)));
 }
 
+void DeletableListView::setItemTitlePointSize(int pointSize)
+{
+    itemTitlePointSize = pointSize;
+}
+
 void DeletableListView::createItem(const QString &title, int id)
 {
     DeletableItem *deletableItem = new DeletableItem(title, id);
     QListWidgetItem *item = new QListWidgetItem();
+
+    if(itemTitlePointSize != INVALID_POINT_SIZE)
+        deletableItem->setTitlePointSize(itemTitlePointSize);
 
     qDebug() << "<DeletableListView::createItem title = " << title << " id = " << id << ">";
 

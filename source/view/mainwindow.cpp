@@ -75,7 +75,9 @@ void MainWindow::setupWindow()
 void MainWindow::setupWidgets()
 {
     playlistContainer = new DeletableListView();
+    playlistContainer->setItemTitlePointSize(18);
     songListView = new DeletableListView();
+    songListView->setItemTitlePointSize(12);
     playerView = new PlayerView();
     newPlaylistTextEdit = new QLineEdit();
     addPlaylistButton = new QPushButton();
