@@ -97,6 +97,8 @@ void Core::bindMVC()
             spotifWebApiController, SLOT(obtainAccessToken()));
 
     // PlaylistController signals
+    connect(playlistController, SIGNAL(playlistSelected(const QString&)),
+            &mainWindow, SLOT(setCurrentPlaylistTitle(const QString&)));
     connect(playlistController, SIGNAL(playlistCreated(const QString&, int)),
             mainWindow.getPlaylistContainer(), SLOT(createItem(const QString&, int)));
     connect(playlistController, SIGNAL(playlistRemoved(int)),
@@ -114,6 +116,8 @@ void Core::bindMVC()
             mainWindow.getSongListView(), SLOT(removeItem(int)));
     connect(songListController, SIGNAL(playlistCleared()),
             mainWindow.getSongListView(), SLOT(clearItems()));
+    connect(songListController, SIGNAL(playlistCleared()),
+            &mainWindow, SLOT(setNoCurrentPlaylist()));
 
     // Binding SpotifyWebApiController signals to proper slots
     connect(spotifWebApiController,
@@ -130,6 +134,8 @@ void Core::bindMVC()
             playlistController, SLOT(removePlaylist(int)));
     connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicked(int)),
             songListController, SLOT(loadPlaylist(int)));
+    connect(mainWindow.getPlaylistContainer(), SIGNAL(itemClicekd(int)),
+            playlistController, SLOT(selectPlaylist(int)));
     connect(mainWindow.getSongListView(), SIGNAL(itemDeleted(int)),
             songListController, SLOT(removeSong(int)));
     connect(&mainWindow, SIGNAL(playlistAddRequested(const QString&)),
