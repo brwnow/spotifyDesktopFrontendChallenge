@@ -179,6 +179,10 @@ void Core::bindMVC()
     connect(songListController, SIGNAL(playlistCleared()),
             mainWindow.getSongListView(), SLOT(clearItems()));
 
+    connect(spotifWebApiController,
+            SIGNAL(songPersistRequest(const QString&, const QString&, const QString&)),
+            songListController,
+            SLOT(createSong(const QString &, const QString &, const QString &)));
     connect(spotifWebApiController, SIGNAL(clearSongSearchResults()),
             &mainWindow, SLOT(clearSongSearchResults()));
     connect(spotifWebApiController, SIGNAL(appendSongToSearchResults(const QString&)),
