@@ -194,6 +194,8 @@ void Core::bindMVC()
             playlistController, SLOT(createPlaylist(const QString&)));
     connect(&mainWindow, SIGNAL(songSearchRequested(const QString&)),
             spotifWebApiController, SLOT(searchSongs(const QString&)));
+    connect(&mainWindow, SIGNAL(saveSongFromSearch(int)),
+            spotifWebApiController, SLOT(songSaveRequested(int)));
 }
 
 void Core::sendLoadAppSignal()

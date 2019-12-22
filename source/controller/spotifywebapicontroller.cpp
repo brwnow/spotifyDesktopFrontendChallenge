@@ -75,6 +75,18 @@ void SpotifyWebApiController::searchSongs(const QString &query)
     networkAccessManager.get(request);
 }
 
+void SpotifyWebApiController::songSaveRequested(int index)
+{
+    if((unsigned)index < searchCache.size())
+    {
+        SpotifySong song = searchCache[index];
+
+        searchCache.clear();
+        emit clearSongSearchResults();
+        emit songPersistRequest(song.getName(), song.getId(), song.getUri());
+    }
+}
+
 void SpotifyWebApiController::getSong(const QString &songID)
 {
     Q_UNUSED(songID);

@@ -25,12 +25,14 @@ signals:
     void networkIsUp();
     void authFailed();
     void appendSongToSearchResults(const QString&);
+    void songPersistRequest(const QString&, const QString&, const QString&);
     void clearSongSearchResults();
     void songLoaded();
 
 public slots:
     void obtainAccessToken();
     void searchSongs(const QString &query);
+    void songSaveRequested(int index);
     void getSong(const QString &songID);
 
 private:
