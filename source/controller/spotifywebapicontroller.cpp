@@ -121,7 +121,7 @@ void SpotifyWebApiController::setupToken(QNetworkReply *reply)
         int errorStatus = replyJson[JSON_TOKEN_ERROR]
                 .toObject()[JSON_TOKEN_ERROR_STATUS].toInt();
 
-        qDebug() << errorMsg << "(" << errorStatus << ")";
+        qCritical() << errorMsg << "(" << errorStatus << ")";
 
         emit authFailed();
     }

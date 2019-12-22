@@ -28,6 +28,9 @@ QSqlDatabase &Database::getDbObject()
 bool Database::open()
 {
     bool mustCreateSchema = !QFileInfo::exists(databaseName);
+    bool success = true;
+
+    qDebug() << "<Database::open>";
 
     database = QSqlDatabase::addDatabase(databaseDriver);
     database.setDatabaseName(databaseName);
@@ -38,24 +41,28 @@ bool Database::open()
         {
             if(!createSchema())
             {
+                qCritical() << "Failed to create database schema";
+
                 emit errorMsgSent("Database query error",
                                   "Error while creating database tables");
 
-                return false;
+                success = false;
             }
         }
-
-        return true;
     }
     else
     {
-        qDebug() << "Database error: " << database.lastError();
+        qCritical() << "Database error: " << database.lastError();
 
         emit errorMsgSent("Cannot open database",
                           "Unable to establish a database connection");
 
-        return false;
+        success = false;
     }
+
+    qDebug() << "<Database::open return =" << success << ">";
+
+    return success;
 }
 
 void Database::close()
@@ -78,7 +85,8 @@ bool Database::createSchema()
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "NAME VARCHAR(100) UNIQUE)"))
     {
-        qDebug() << query.lastError();
+        qCritical() << query.lastError();
+
         success = false;
     }
 
@@ -90,7 +98,8 @@ bool Database::createSchema()
                     "SPOTIFY_URI VARCHAR(100),"
                     "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))"))
     {
-        qDebug() << query.lastError();
+        qCritical() << query.lastError();
+
         success = false;
     }
 
