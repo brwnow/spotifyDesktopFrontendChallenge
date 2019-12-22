@@ -16,10 +16,22 @@ int DeletableItem::getID() const
     return id;
 }
 
+void DeletableItem::setTitlePointSize(int pointSize)
+{
+    QFont font = title->font();
+    font.setPointSize(pointSize);
+    title->setFont(font);
+}
+
 void DeletableItem::setupWidgets(const QString &title)
 {
     this->title = new QLabel(title);
-    deleteButton = new QPushButton(QString("Del"));
+
+    deleteButton = new QPushButton();
+    deleteButton->setIcon(QIcon(":/icons/remove.png"));
+    deleteButton->setIconSize(QSize(24, 24));
+    deleteButton->setFlat(true);
+    deleteButton->setToolTip("Delete an item from the list");
 }
 
 void DeletableItem::setupLayout()

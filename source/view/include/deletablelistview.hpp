@@ -15,6 +15,8 @@ class DeletableListView : public QListWidget
 public:
     DeletableListView(QWidget *parent = nullptr);
 
+    void setItemTitlePointSize(int pointSize);
+
 signals:
     void itemClicked(int id);
     void itemDeleted(int id);
@@ -25,7 +27,10 @@ public slots:
     void clearItems();
 
 private:
+    static const int INVALID_POINT_SIZE;
+
     map<int, QListWidgetItem*> itemIdMap;
+    int itemTitlePointSize;
 
 private slots:
     void onItemSelected(QListWidgetItem *item);

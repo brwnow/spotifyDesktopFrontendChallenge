@@ -64,6 +64,7 @@ void MainWindow::setupWindow()
 {
     this->setWindowTitle("Spotify Desktop");
     this->setCentralWidget(new QWidget());
+    this->setWindowIcon(QIcon(":/icons/spotify.png"));
 
     setGeometry(QApplication::desktop()->size().width() * (1.0 - windowPercentageOfDesktop) / 2.0,
                 QApplication::desktop()->size().height() * (1.0 - windowPercentageOfDesktop) / 2.0,
@@ -74,14 +75,20 @@ void MainWindow::setupWindow()
 void MainWindow::setupWidgets()
 {
     playlistContainer = new DeletableListView();
+    playlistContainer->setItemTitlePointSize(18);
     songListView = new DeletableListView();
+    songListView->setItemTitlePointSize(12);
     playerView = new PlayerView();
     newPlaylistTextEdit = new QLineEdit();
-    addPlaylistButton = new QPushButton("+");
+    addPlaylistButton = new QPushButton();
+    addPlaylistButton->setIcon(QIcon(":/icons/add.png"));
+    addPlaylistButton->setFlat(true);
+    addPlaylistButton->setToolTip("Add a playlist");
 
     playlistTitle = new QLabel();
     songSearchTextEdit = new QLineEdit();
-    searchButton = new QPushButton("Search");
+    searchButton = new QPushButton(QIcon(":/icons/search.png"), "SEARCH");
+    searchButton->setToolTip("Search for songs");
     searchResultList = new QListWidget();
 
     QFont playlistTitleFont = QGuiApplication::font();
@@ -118,6 +125,7 @@ void MainWindow::setupLayout()
     songListLayout->setColumnStretch(1, 0);
 
     QGroupBox *songListWidget = new QGroupBox();
+    songListWidget->setTitle("Songs");
     songListWidget->setLayout(songListLayout);
 
     QSplitter *splitter = new QSplitter();
