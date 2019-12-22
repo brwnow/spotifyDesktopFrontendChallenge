@@ -28,6 +28,7 @@ public:
 
     PlaylistTable(QSqlDatabase &database);
 
+    QString getPlaylistTitle(int id);
     list<Tuple> getAllPlaylists();
     void insert(const QString &title);
     void remove(int id);
