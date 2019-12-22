@@ -4,6 +4,7 @@
 #include "mainwindow.hpp"
 #include "playlistcontroller.hpp"
 #include "songlistcontroller.hpp"
+#include "spotifywebapicontroller.hpp"
 
 #include <QApplication>
 #include <QMutex>
@@ -27,6 +28,7 @@ public:
 
 signals:
     void mustLoadAppData();
+    void mustStartNetwork();
 
 private:
     static const QString databaseDriver;
@@ -40,6 +42,7 @@ private:
 
     PlaylistController *playlistController;
     SongListController *songListController;
+    SpotifyWebApiController *spotifWebApiController;
 
     Core(QApplication &app);
 
