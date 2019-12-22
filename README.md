@@ -24,3 +24,22 @@ In order to fix this, you must copy files `libeay32.dll` and `ssleay32.dll` from
 * Adding songs found in search to local playlists
 * Removing songs from local playlists
 * _Playing local playlists_ *missing*
+
+## Instructions for Use
+### Adding a new playlist
+To add a new playlist you must type the desired playlist name in text field in the panel titled "Playlists" and click the + button
+
+### Removing a playlist
+In the list of playlistis you must click in the button with a trash icon in order to remove the playlist
+
+### Opening a playlist
+Click in the desired playlist to open it in the leftmost panel
+
+### Searching for a song
+When you have already opened a playlist, type the keywords in the text field besides the search button, and then hit enter key or press search button
+
+### Adding a new song to a playlist
+When you have already opened a playlist and performed a song search, click on the song you want to add to the playlist from the songs available in the search result list
+
+### Removing a song from a playlist
+When you have already opened a playlist, click in the trash button of the song you want to remove from the playlist
