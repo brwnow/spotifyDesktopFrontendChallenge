@@ -17,27 +17,38 @@ PlaylistTable::PlaylistTable(QSqlDatabase &database) :
 
 QString PlaylistTable::getPlaylistTitle(int id)
 {
-    QString name;
     QSqlQuery query(database);
-    query.prepare(QString("SELECT ") + NAME_FIELD +
-                  " FROM "+ TABLE_NAME + " WHERE " + ID_FIELD + " = ?");
-    int nameFieldNum = query.record().indexOf(NAME_FIELD);
+    QString name;
 
     qDebug() << "<PlaylistTable::selectPlaylist id =" << id << ">";
-    qDebug() << "Query:" << query.lastQuery();
 
-    if(query.next())
+    query.prepare(QString("SELECT ") + NAME_FIELD +
+                  " FROM "+ TABLE_NAME + " WHERE " + ID_FIELD + " = ?");
+    query.bindValue(0, id);
+
+    if(!query.exec())
     {
-        name = query.value(nameFieldNum).toString();
-        qDebug() << "Query got playlist name:" << name;
+        qCritical() << "Query error:" << query.lastError();
     }
     else
     {
-        name = "";
-        qCritical() << query.lastError();
+        int nameFieldNum = query.record().indexOf(NAME_FIELD);
+
+        qDebug() << "Query:" << query.lastQuery();
+
+        if(query.next())
+        {
+            name = query.value(nameFieldNum).toString();
+            qDebug() << "Query got playlist name:" << name;
+        }
+        else
+        {
+            name = "";
+            qCritical() << "Playlist not found in database";
+        }
     }
 
-    qDebug() << "</PlaylistTable::selectPlaylist return =\"" << name << "\">";
+    qDebug() << "</PlaylistTable::selectPlaylist return =" << name << ">";
 
     return name;
 }
