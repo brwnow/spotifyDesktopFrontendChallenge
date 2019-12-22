@@ -128,6 +128,8 @@ bool Core::createDatabaseSchema()
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "NAME VARCHAR(100),"
                     "PLAYLIST_ID INTEGER,"
+                    "SPOTIFY_ID VARCHAR(100),"
+                    "SPOTIFY_URI VARCHAR(100),"
                     "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))"))
     {
         qDebug() << query.lastError();
