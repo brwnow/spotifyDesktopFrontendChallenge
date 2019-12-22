@@ -27,6 +27,7 @@ signals:
     void saveSongFromSearch(int index);
 
 public slots:
+    void appendSongSearchResult(const QString &songName);
     void clearSongSearchResults();
 
 private:

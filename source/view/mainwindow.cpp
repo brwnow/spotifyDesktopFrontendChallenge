@@ -40,6 +40,11 @@ PlayerView *MainWindow::getPlayerView()
     return playerView;
 }
 
+void MainWindow::appendSongSearchResult(const QString &songName)
+{
+    searchResultList->addItem(new QListWidgetItem(songName));
+}
+
 void MainWindow::clearSongSearchResults()
 {
     searchResultList->clear();
