@@ -29,7 +29,7 @@ void SongListController::createSong(const QString &title,
     }
     else
     {
-        qDebug() << "Song insertion failed. There is no opened playlist";
+        qWarning() << "Song insertion failed. There is no opened playlist";
     }
 
     qDebug() << "</SongListController::createSong>";

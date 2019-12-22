@@ -33,7 +33,7 @@ list<SongTable::Tuple> SongTable::getPlaylist(int playlistID)
 
     if(!query.exec())
     {
-        qDebug() << "Query error: " << query.lastError();
+        qCritical() << "Query error: " << query.lastError();
     }
     else
     {
@@ -83,7 +83,7 @@ void SongTable::insert(const QString &title,
     }
     else
     {
-        qDebug() << "Query error: " << query.lastError();
+        qCritical() << "Query error: " << query.lastError();
 
         emit insertionFailed(title);
     }

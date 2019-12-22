@@ -49,7 +49,7 @@ bool Database::open()
     }
     else
     {
-        qDebug() << "Database error: " << database.lastError();
+        qCritical() << "Database error: " << database.lastError();
 
         emit errorMsgSent("Cannot open database",
                           "Unable to establish a database connection");
@@ -78,7 +78,8 @@ bool Database::createSchema()
                     "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     "NAME VARCHAR(100) UNIQUE)"))
     {
-        qDebug() << query.lastError();
+        qCritical() << query.lastError();
+
         success = false;
     }
 
@@ -90,7 +91,8 @@ bool Database::createSchema()
                     "SPOTIFY_URI VARCHAR(100),"
                     "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))"))
     {
-        qDebug() << query.lastError();
+        qCritical() << query.lastError();
+
         success = false;
     }
 
