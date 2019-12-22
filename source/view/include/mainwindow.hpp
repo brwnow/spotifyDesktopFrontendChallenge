@@ -31,6 +31,8 @@ public slots:
     void setNoCurrentPlaylist();
     void appendSongSearchResult(const QString &songName);
     void clearSongSearchResults();
+    void lockSearch();
+    void unlockSearch();
 
 private:
     // Percentage of desktop dimensions that MainWindow will assume
