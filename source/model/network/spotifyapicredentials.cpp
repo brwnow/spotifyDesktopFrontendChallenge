@@ -1,10 +1,23 @@
 #include "spotifyapicredentials.hpp"
 
-SpotifyApiCredentials::SpotifyApiCredentials() :
-    clientId("24d9ba2e4d9d4fc4b783bc459998dcea"),
-    clientSecret("5fc67386c7894ae795f20bb325e2cb1e")
+#include <QDebug>
+#include <QFile>
+
+SpotifyApiCredentials::SpotifyApiCredentials()
 {
-    // TODO: load credentials from resource files
+    QFile file(":/api/credentials/api_credentials.txt");
+
+    if(file.open(QIODevice::ReadOnly))
+    {
+        qDebug() << "Credentials resource file opened successfully";
+
+        clientId = file.readLine().trimmed();
+        clientSecret = file.readLine().trimmed();
+    }
+    else
+    {
+        qDebug() << "Credentials resource file failed to open";
+    }
 }
 
 const QString &SpotifyApiCredentials::getClientId() const
