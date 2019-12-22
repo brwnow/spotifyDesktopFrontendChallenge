@@ -113,6 +113,7 @@ void MainWindow::setupConnections()
             this, SLOT(onAddPlaylistTriggered()));
     connect(newPlaylistTextEdit, SIGNAL(returnPressed()),
             this, SLOT(onAddPlaylistTriggered()));
+    connect(searchButton, SIGNAL(clicked()), this, SLOT(onSongSearchClicked()));
 }
 
 void MainWindow::onAddPlaylistTriggered()
@@ -124,6 +125,18 @@ void MainWindow::onAddPlaylistTriggered()
         newPlaylistTextEdit->setText("");
 
         emit playlistAddRequested(playlistTitle);
+    }
+}
+
+void MainWindow::onSongSearchClicked()
+{
+    QString searchQuery = songSearchTextEdit->text();
+
+    if(!searchQuery.isEmpty())
+    {
+        songSearchTextEdit->clear();
+
+        emit songSearchRequested(searchQuery);
     }
 }
 

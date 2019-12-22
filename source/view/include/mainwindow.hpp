@@ -23,6 +23,7 @@ public:
 
 signals:
     void playlistAddRequested(const QString &title);
+    void songSearchRequested(const QString &searchQuery);
 
 private:
     // Percentage of desktop dimensions that MainWindow will assume
@@ -45,6 +46,7 @@ private:
 
 private slots:
     void onAddPlaylistTriggered();
+    void onSongSearchClicked();
 
 };
 #endif // MAINWINDOW_HPP
