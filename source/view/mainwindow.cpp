@@ -40,6 +40,16 @@ PlayerView *MainWindow::getPlayerView()
     return playerView;
 }
 
+void MainWindow::setCurrentPlaylistTitle(const QString &title)
+{
+    playlistTitle->setText(title);
+}
+
+void MainWindow::setNoCurrentPlaylist()
+{
+    playlistTitle->setText("");
+}
+
 void MainWindow::appendSongSearchResult(const QString &songName)
 {
     searchResultList->addItem(new QListWidgetItem(songName));
