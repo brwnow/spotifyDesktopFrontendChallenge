@@ -15,7 +15,11 @@ PlaylistTable::PlaylistTable(QSqlDatabase &database) :
 
 list<PlaylistTable::Tuple> PlaylistTable::getAllPlaylists()
 {
-    QSqlQuery query("SELECT ID, NAME FROM PLAYLIST", database);
+    QSqlQuery query(database);
+    query.prepare("SELECT ?, ? FROM ?");
+    query.bindValue(0, ID_FIELD);
+    query.bindValue(1, NAME_FIELD);
+    query.bindValue(2, TABLE_NAME);
     int idFieldNum = query.record().indexOf(ID_FIELD);
     int nameFieldNum = query.record().indexOf(NAME_FIELD);
     list<Tuple> listOfPlaylists;
@@ -34,8 +38,10 @@ list<PlaylistTable::Tuple> PlaylistTable::getAllPlaylists()
 void PlaylistTable::insert(const QString &title)
 {
     QSqlQuery query(database);
-    query.prepare("INSERT INTO PLAYLIST (NAME) VALUES (?)");
-    query.bindValue(0, title);
+    query.prepare("INSERT INTO ? (?) VALUES (?)");
+    query.bindValue(0, TABLE_NAME);
+    query.bindValue(1, NAME_FIELD);
+    query.bindValue(2, title);
 
     if(query.exec())
         emit playlistInserted(title, query.lastInsertId().toInt());
@@ -46,8 +52,10 @@ void PlaylistTable::insert(const QString &title)
 void PlaylistTable::remove(int id)
 {
     QSqlQuery query(database);
-    query.prepare("DELETE FROM PLAYLIST WHERE ID = ?");
-    query.bindValue(0, id);
+    query.prepare("DELETE FROM ? WHERE ? = ?");
+    query.bindValue(0, TABLE_NAME);
+    query.bindValue(1, ID_FIELD);
+    query.bindValue(2, id);
 
     if(query.exec())
         emit playlistRemoved(id);
