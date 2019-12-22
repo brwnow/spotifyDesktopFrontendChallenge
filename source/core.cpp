@@ -9,16 +9,8 @@
 
 QMutex Core::runMutex;
 
-const QString Core::databaseDriver("QSQLITE");
-const QString Core::databaseName("db.dat");
-
 QString Core::errorMsgTitle;
 QString Core::errorMsg;
-
-Core::~Core()
-{
-    database.close();
-}
 
 int Core::run(QApplication &app)
 {
@@ -34,7 +26,7 @@ int Core::run(QApplication &app)
         bool appInitializationFailed = false;
         Core core(app);
 
-        if(!core.connectToDatabase())
+        if(!core.database.open())
             appInitializationFailed = true;
 
         core.initControllers();
@@ -58,16 +50,19 @@ int Core::run(QApplication &app)
     }
 }
 
-Core::Core(QApplication &app) :
-    app(app),
-    mainWindow(MainWindow::getInstance())
-{
-}
-
 void Core::setErrorDialog(const QString &title, const QString &msg)
 {
     errorMsgTitle = title;
     errorMsg = msg;
+}
+
+Core::Core(QApplication &app) :
+    app(app),
+    database(Database::getInstance()),
+    mainWindow(MainWindow::getInstance())
+{
+    connect(&database, SIGNAL(errorMsgSent(const QString&, const QString&)),
+            this, SLOT(setErrorDialog(const QString&, const QString&)));
 }
 
 int Core::exec()
@@ -77,82 +72,10 @@ int Core::exec()
     return app.exec();
 }
 
-bool Core::connectToDatabase()
-{
-    bool mustCreateSchema = !QFileInfo::exists(databaseName);
-
-    database = QSqlDatabase::addDatabase(databaseDriver);
-    database.setDatabaseName(databaseName);
-
-    if(database.open())
-    {
-        if(mustCreateSchema)
-        {
-            if(!createDatabaseSchema())
-            {
-                setErrorDialog("Database query error",
-                               "Error while creating database tables");
-
-                return false;
-            }
-        }
-
-        return true;
-    }
-    else
-    {
-        qDebug() << "Database error: " << database.lastError();
-
-        setErrorDialog("Cannot open database", "Unable to establish a database connection");
-
-        return false;
-    }
-}
-
-bool Core::createDatabaseSchema()
-{
-    QSqlQuery query(database);
-    bool success = true;
-
-    qDebug() << "<Core::createDatabaseSchema>";
-
-    if(!query.exec("CREATE TABLE PLAYLIST("
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    "NAME VARCHAR(100) UNIQUE)"))
-    {
-        qDebug() << query.lastError();
-        success = false;
-    }
-
-    if(!query.exec("CREATE TABLE SONG("
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    "NAME VARCHAR(100),"
-                    "PLAYLIST_ID INTEGER,"
-                    "SPOTIFY_ID VARCHAR(100),"
-                    "SPOTIFY_URI VARCHAR(100),"
-                    "FOREIGN KEY(PLAYLIST_ID) REFERENCES PLAYLIST(ID))"))
-    {
-        qDebug() << query.lastError();
-        success = false;
-    }
-
-    if(!query.exec("CREATE TABLE CREDENTIALS("
-                    "LOGIN VARCHAR(30) PRIMARY KEY,"
-                    "PASSWORD VARCHAR(30))"))
-    {
-        qDebug() << query.lastError();
-        success = false;
-    }
-
-    qDebug() << "</Core::dataBaseSchema>";
-
-    return success;
-}
-
 void Core::initControllers()
 {
-    playlistController = new PlaylistController(database, this);
-    songListController = new SongListController(database, this);
+    playlistController = new PlaylistController(database.getDbObject(), this);
+    songListController = new SongListController(database.getDbObject(), this);
     spotifWebApiController = new SpotifyWebApiController(this);
 }
 

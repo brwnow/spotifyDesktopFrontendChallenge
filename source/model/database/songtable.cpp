@@ -7,8 +7,12 @@
 #include <QSqlRecord>
 #include <QVariant>
 
+const QString SongTable::TABLE_NAME("SONG");
 const QString SongTable::ID_FIELD("ID");
 const QString SongTable::NAME_FIELD("NAME");
+const QString SongTable::PLAYLIST_ID("PLAYLIST_ID");
+const QString SongTable::SPOTIFY_ID("SPOTIFY_ID");
+const QString SongTable::SPOTIFY_URI("SPOTIFY_URI");
 
 SongTable::SongTable(QSqlDatabase &database, QObject *parent) :
     QObject(parent),
@@ -23,7 +27,8 @@ list<SongTable::Tuple> SongTable::getPlaylist(int playlistID)
 
     qDebug() << "<SongTable::getPlaylist playlistID = " << playlistID << ">";
 
-    query.prepare("SELECT ID, NAME FROM SONG WHERE PLAYLIST_ID = ?");
+    query.prepare(QString("SELECT ") + ID_FIELD + ", " + NAME_FIELD + " FROM " +
+                  TABLE_NAME + " WHERE " + PLAYLIST_ID + " = ?");
     query.bindValue(0, playlistID);
 
     if(!query.exec())
@@ -57,7 +62,9 @@ void SongTable::insert(const QString &title,
                        const QString &spotifyUri)
 {
     QSqlQuery query(database);
-    query.prepare("INSERT INTO SONG (NAME, PLAYLIST_ID, SPOTIFY_ID, SPOTIFY_URI) "
+    query.prepare(QString("INSERT INTO ") + TABLE_NAME +
+                  " (" + NAME_FIELD + ", " + PLAYLIST_ID + ", " +
+                  SPOTIFY_ID + ", " + SPOTIFY_URI + ") " +
                   "VALUES (?, ?, ?, ?)");
     query.bindValue(0, title);
     query.bindValue(1, playlistID);
@@ -87,7 +94,7 @@ void SongTable::insert(const QString &title,
 void SongTable::remove(int id)
 {
     QSqlQuery query(database);
-    query.prepare("DELETE FROM SONG WHERE ID = ?");
+    query.prepare(QString("DELETE FROM ") + TABLE_NAME + " WHERE " + ID_FIELD + " = ?");
     query.bindValue(0, id);
 
     if(query.exec())
