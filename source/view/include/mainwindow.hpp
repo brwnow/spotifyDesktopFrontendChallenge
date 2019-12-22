@@ -32,6 +32,9 @@ private:
     PlayerView *playerView;
     QLineEdit *newPlaylistTextEdit;
     QPushButton *addPlaylistButton;
+    QLineEdit *songSearchTextEdit;
+    QPushButton *searchButton;
+    QListWidget *searchResultList;
 
     MainWindow(QWidget *parent = nullptr);
 
