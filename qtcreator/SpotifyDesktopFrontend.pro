@@ -41,7 +41,8 @@ SOURCES += \
     $$SOURCEPATH/model/network/spotifysong.cpp \
     $$SOURCEPATH/controller/playlistcontroller.cpp \
     $$SOURCEPATH/controller/songlistcontroller.cpp \
-    $$SOURCEPATH/controller/spotifywebapicontroller.cpp
+    $$SOURCEPATH/controller/spotifywebapicontroller.cpp \
+    $$SOURCEPATH/controller/playercontroller.cpp
 
 HEADERS += \
     $$SOURCEPATH/include/core.hpp \
@@ -56,7 +57,8 @@ HEADERS += \
     $$SOURCEPATH/model/network/include/spotifysong.hpp \
     $$SOURCEPATH/controller/include/playlistcontroller.hpp \
     $$SOURCEPATH/controller/include/songlistcontroller.hpp \
-    $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp
+    $$SOURCEPATH/controller/include/spotifywebapicontroller.hpp \
+    $$SOURCEPATH/controller/include/playercontroller.hpp
 
 RESOURCES += \
     $$RESOURCEPATH/resources.qrc
