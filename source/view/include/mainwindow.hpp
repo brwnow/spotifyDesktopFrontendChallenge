@@ -26,6 +26,9 @@ signals:
     void songSearchRequested(const QString &searchQuery);
     void saveSongFromSearch(int index);
 
+public slots:
+    void clearSongSearchResults();
+
 private:
     // Percentage of desktop dimensions that MainWindow will assume
     static const double windowPercentageOfDesktop;

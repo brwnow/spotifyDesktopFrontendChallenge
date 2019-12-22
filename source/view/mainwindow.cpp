@@ -40,6 +40,11 @@ PlayerView *MainWindow::getPlayerView()
     return playerView;
 }
 
+void MainWindow::clearSongSearchResults()
+{
+    searchResultList->clear();
+}
+
 void MainWindow::setupWindow()
 {
     this->setWindowTitle("Spotify Desktop");
