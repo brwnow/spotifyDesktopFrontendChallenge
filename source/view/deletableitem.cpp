@@ -17,12 +17,16 @@ int DeletableItem::getID() const
     return id;
 }
 
+void DeletableItem::setTitlePointSize(int pointSize)
+{
+    QFont font = title->font();
+    font.setPointSize(pointSize);
+    title->setFont(font);
+}
+
 void DeletableItem::setupWidgets(const QString &title)
 {
     this->title = new QLabel(title);
-    QFont titleFont = QGuiApplication::font();
-    titleFont.setPointSize(18);
-    this->title->setFont(titleFont);
 
     deleteButton = new QPushButton();
     deleteButton->setIcon(QIcon(":/icons/remove.png"));

@@ -14,6 +14,8 @@ public:
 
     int getID() const;
 
+    void setTitlePointSize(int pointSize);
+
 signals:
     void deleteTriggered(int id);
 
