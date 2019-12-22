@@ -32,6 +32,7 @@ SOURCES += \
     $$SOURCEPATH/view/deletablelistview.cpp \
     $$SOURCEPATH/view/deletableitem.cpp \
     $$SOURCEPATH/view/playerview.cpp \
+    $$SOURCEPATH/model/database/database.cpp \
     $$SOURCEPATH/model/database/playlisttable.cpp \
     $$SOURCEPATH/model/database/songtable.cpp \
     $$SOURCEPATH/model/network/spotifyapicredentials.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     $$SOURCEPATH/view/include/deletablelistview.hpp \
     $$SOURCEPATH/view/include/deletableitem.hpp \
     $$SOURCEPATH/view/include/playerview.hpp \
+    $$SOURCEPATH/model/database/include/database.hpp \
     $$SOURCEPATH/model/database/include/playlisttable.hpp \
     $$SOURCEPATH/model/database/include/songtable.hpp \
     $$SOURCEPATH/model/network/include/spotifyapicredentials.hpp \
