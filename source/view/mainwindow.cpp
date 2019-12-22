@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupWidgets();
     setupLayout();
     setupConnections();
+    lockSearch();
 }
 
 MainWindow &MainWindow::getInstance()
@@ -43,11 +44,15 @@ PlayerView *MainWindow::getPlayerView()
 void MainWindow::setCurrentPlaylistTitle(const QString &title)
 {
     playlistTitle->setText(title);
+
+    unlockSearch();
 }
 
 void MainWindow::setNoCurrentPlaylist()
 {
     playlistTitle->setText("");
+
+    lockSearch();
 }
 
 void MainWindow::appendSongSearchResult(const QString &songName)
@@ -58,6 +63,20 @@ void MainWindow::appendSongSearchResult(const QString &songName)
 void MainWindow::clearSongSearchResults()
 {
     searchResultList->clear();
+}
+
+void MainWindow::lockSearch()
+{
+    songSearchTextEdit->setEnabled(false);
+    searchButton->setEnabled(false);
+    searchResultList->setEnabled(false);
+}
+
+void MainWindow::unlockSearch()
+{
+    songSearchTextEdit->setEnabled(true);
+    searchButton->setEnabled(true);
+    searchResultList->setEnabled(true);
 }
 
 void MainWindow::setupWindow()
